@@ -16,10 +16,10 @@ namespace DoYouNowThese.DATA.Models
         public string PostImagePath { get; set; }
         public int? CategoryId { get; set; }
         public int? AuthorId { get; set; }
-        public int? LikeCount { get; set; }
-        public DateTime? CreateDate { get; set; }
-        public bool? IsActive { get; set; }
-        public bool? IsDeleted { get; set; }
+        public int LikeCount { get; set; }
+        public DateTime CreateDate { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
 
         public AppUser Author { get; set; }
         public Category Category { get; set; }
