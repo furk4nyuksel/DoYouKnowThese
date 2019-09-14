@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DoYouNowThese.BIZ.Operations.InformationContentOperation;
 using DoYouNowThese.CommonModel.InformationContentModel;
+using DoYouNowThese.CommonModel.Infrastructure;
 using DoYouNowThese.CORE;
 using DoYouNowThese.DATA.Models;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +30,7 @@ namespace DoYouNowThese.API.Controllers
         [HttpGet]
         public JsonResult GetSingleContent()
         {
+            InfrastructureModel<InformationContentSingleDataModel> response = new InfrastructureModel<InformationContentSingleDataModel>();
             InformationContentSingleDataModel resultModel = new InformationContentSingleDataModel();
             try
             {
@@ -38,13 +40,16 @@ namespace DoYouNowThese.API.Controllers
                 resultModel.ImagePath = informationContext.PostImagePath;
                 resultModel.LikeCount = informationContext.LikeCount.ToString();
                 resultModel.Title = informationContext.Title;
+
+                response.ResultModel = resultModel;
+                response.ResultStatus = true;
             }
             catch (Exception ex)
             {
-
+                response.ResultStatus = false;
                 throw;
             }
-            return new JsonResult(resultModel);
+            return new JsonResult(response);
         } 
     }
 }
