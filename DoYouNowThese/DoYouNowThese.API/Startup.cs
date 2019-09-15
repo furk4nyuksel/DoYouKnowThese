@@ -42,6 +42,8 @@ namespace DoYouNowThese.API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseDeveloperExceptionPage();
+            app.UseDatabaseErrorPage();
         }
     }
 }
