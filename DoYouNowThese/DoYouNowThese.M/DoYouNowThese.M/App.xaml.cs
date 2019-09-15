@@ -1,20 +1,17 @@
-﻿using System;
+﻿using DoYouNowThese.M.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using DoYouNowThese.M.Services;
-using DoYouNowThese.M.Views;
 
 namespace DoYouNowThese.M
 {
     public partial class App : Application
     {
-
         public App()
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new MainPage();
+            MainPage = new LeftMenu();
         }
 
         protected override void OnStart()
