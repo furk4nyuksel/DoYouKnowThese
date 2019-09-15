@@ -33,7 +33,7 @@ namespace DoYouNowThese.M.Views
             {
                 MenuItems = new ObservableCollection<LeftMenuMasterMenuItem>(new[]
                 {
-                    new LeftMenuMasterMenuItem { Id = 0, Title = "İçerikler" },
+                    new LeftMenuMasterMenuItem { Id = 0, Title = "İçerikler",TargetType=new MainPage().GetType() },
                     new LeftMenuMasterMenuItem { Id = 1, Title = "İçerik Gönder" },
                     new LeftMenuMasterMenuItem { Id = 2, Title = "Hakkımızda" },
                 });

@@ -26,10 +26,7 @@ namespace DoYouNowThese.M.Views
 
             var page = (Page)Activator.CreateInstance(item.TargetType);
             page.Title = item.Title;
-            if (item.Id == 1)
-            {
-                Detail = new NavigationPage(page);
-            }
+
             Detail = new NavigationPage(page);
             IsPresented = false;
 

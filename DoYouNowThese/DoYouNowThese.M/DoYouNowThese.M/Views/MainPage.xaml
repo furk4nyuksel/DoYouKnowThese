@@ -10,7 +10,18 @@
         <!-- Place new controls here -->
         <Label Text="Welcome to Xamarin.Forms!" 
            HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+           VerticalOptions="CenterAndExpand" x:Name="lblTitle" />
+
+        <Label Text="Welcome to Xamarin.Forms!" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" x:Name="lblExplanation" />
+        
+         
+         <Image Source="" x:Name="imgContent" />
+
+        
+        <Button Text="" x:Name="btnChangeSingleData" />
+        
     </StackLayout>
 
 </ContentPage>

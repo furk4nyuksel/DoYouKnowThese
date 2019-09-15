@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DoYouNowThese.CommonModel.InformationContentModel;
+using DoYouNowThese.M.Operations.InformationContentOperation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +18,32 @@ namespace DoYouNowThese.M
         public MainPage()
         {
             InitializeComponent();
+
+            InformationContentOperation informationContentOperation = new InformationContentOperation();
+            Task<InformationContentSingleDataModel> taskData =   Task<InformationContentOperation>.Run(()=> informationContentOperation.GetInformationContentSingleData().Result);
+
+            InformationContentSingleDataModel data = taskData.Result;
+
+            lblExplanation.Text = data.Explanation;
+            lblTitle.Text = data.Title;
+            imgContent.Source = data.ImagePath;
+
+            btnChangeSingleData.Clicked += BtnChangeSingleData_Clicked;
+        }
+
+        private void BtnChangeSingleData_Clicked(object sender, EventArgs e)
+        {
+
+            InformationContentOperation informationContentOperation = new InformationContentOperation();
+            Task<InformationContentSingleDataModel> taskData = Task<InformationContentOperation>.Run(() => informationContentOperation.GetInformationContentSingleData().Result);
+
+            InformationContentSingleDataModel data = taskData.Result;
+
+            lblExplanation.Text = data.Explanation;
+            lblTitle.Text = data.Title;
+            imgContent.Source = data.ImagePath;
+
+            btnChangeSingleData.Clicked += BtnChangeSingleData_Clicked;
         }
     }
 }
