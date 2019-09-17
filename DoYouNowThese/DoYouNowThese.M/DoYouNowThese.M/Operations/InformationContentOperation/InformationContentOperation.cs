@@ -18,9 +18,9 @@ namespace DoYouNowThese.M.Operations.InformationContentOperation
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
 
-                HttpResponseMessage responce = await client.GetAsync(new Uri(_conString + "/GetPassiveRegistrationCompany/?CompanyID=" + (int)Application.Current.Properties["UserID"]));
+                HttpResponseMessage responce = await client.GetAsync(new Uri(_conString+"Information/"));
 
                 responce.EnsureSuccessStatusCode();
                 string responceBody = await responce.Content.ReadAsStringAsync();

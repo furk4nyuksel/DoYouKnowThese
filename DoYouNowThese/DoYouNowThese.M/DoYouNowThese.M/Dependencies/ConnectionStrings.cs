@@ -6,6 +6,6 @@ namespace DoYouNowThese.M.Dependencies
 {
    public static class ConnectionStrings
     {
-        public static string url = "www.google.com";
+        public static string url = "http://192.168.1.20/api/";
     }
 }

@@ -18,16 +18,7 @@ namespace DoYouNowThese.M
         public MainPage()
         {
             InitializeComponent();
-
-            InformationContentOperation informationContentOperation = new InformationContentOperation();
-            Task<InformationContentSingleDataModel> taskData =   Task<InformationContentOperation>.Run(()=> informationContentOperation.GetInformationContentSingleData().Result);
-
-            InformationContentSingleDataModel data = taskData.Result;
-
-            lblExplanation.Text = data.Explanation;
-            lblTitle.Text = data.Title;
-            imgContent.Source = data.ImagePath;
-
+            ChangeData();
             btnChangeSingleData.Clicked += BtnChangeSingleData_Clicked;
         }
 
@@ -44,6 +35,19 @@ namespace DoYouNowThese.M
             imgContent.Source = data.ImagePath;
 
             btnChangeSingleData.Clicked += BtnChangeSingleData_Clicked;
+        }
+        public async void ChangeData()
+        {
+            InformationContentOperation informationContentOperation = new InformationContentOperation();
+            Task<InformationContentSingleDataModel> taskData = Task<InformationContentOperation>.Run(() => informationContentOperation.GetInformationContentSingleData().Result);
+            if (taskData.Status == TaskStatus.RanToCompletion)
+            {
+                InformationContentSingleDataModel data = taskData.Result;
+
+                lblExplanation.Text = data.Explanation;
+                lblTitle.Text = data.Title;
+                imgContent.Source = data.ImagePath;
+            }
         }
     }
 }
