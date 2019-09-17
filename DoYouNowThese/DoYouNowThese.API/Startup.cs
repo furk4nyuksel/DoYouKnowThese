@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace DoYouNowThese.API
 {
@@ -25,6 +26,23 @@ namespace DoYouNowThese.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("CoreSwagger", new Info
+                {
+                    Title = "Swagger For Test",
+                    Version = "1.0.0",
+                    Description = "Try Swagger on (ASP.NET Core 2.1)",
+                    Contact = new Contact()
+                    {
+                        Name = "Swagger Implementation Furkan Yüksel",
+                        Url = "http://teknohisar.ocm",
+                        Email = "info@teknohisar.com"
+                    },
+                    TermsOfService = "http://swagger.io/terms/"
+                });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -33,7 +51,7 @@ namespace DoYouNowThese.API
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); 
             }
             else
             {
@@ -44,6 +62,14 @@ namespace DoYouNowThese.API
             app.UseMvc();
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
+
+            app.UseSwagger().UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/CoreSwagger/swagger.json", "swagger Test .NetCore");
+            });
+
         }
+
+        
     }
 }
