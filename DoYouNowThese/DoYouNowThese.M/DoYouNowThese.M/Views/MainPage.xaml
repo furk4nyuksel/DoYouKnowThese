@@ -10,17 +10,15 @@
         <!-- Place new controls here -->
         <Label 
            HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" TextColor="White" x:Name="lblTitle" LineBreakMode="WordWrap" />
+           VerticalOptions="CenterAndExpand" TextColor="White" x:Name="lblTitle" FontSize="25" LineBreakMode="WordWrap" />
 
         <Label  
            HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" TextColor="White" x:Name="lblExplanation" LineBreakMode="WordWrap" LineHeight="1.8" />
+           VerticalOptions="CenterAndExpand" TextColor="White" x:Name="lblExplanation" FontSize="Body" LineBreakMode="WordWrap" LineHeight="1.8" />
         
-         
-         <Image Source="" x:Name="imgContent" />
+         <Image Source="" x:Name="imgContent"  Margin="20"/>
 
-
-        <Button Text="Yeni Bilgi" TextColor="White" x:Name="btnChangeSingleData" />
+        <Button Text="Yeni Bilgi"  WidthRequest="80" HeightRequest="80"  CornerRadius ="40" VerticalOptions="Center" HorizontalOptions ="Center" BackgroundColor="#f75f00"  TextColor="White" x:Name="btnChangeSingleData" />
         
     </StackLayout>
 
