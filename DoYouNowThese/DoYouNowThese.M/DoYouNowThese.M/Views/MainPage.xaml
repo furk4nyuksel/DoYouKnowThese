@@ -6,21 +6,21 @@
              mc:Ignorable="d"
              x:Class="DoYouNowThese.M.MainPage">
 
-    <StackLayout>
+    <StackLayout Padding="5,10" BackgroundColor="#43ab92">
         <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
+        <Label 
            HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" x:Name="lblTitle" />
+           VerticalOptions="CenterAndExpand" TextColor="White" x:Name="lblTitle" LineBreakMode="WordWrap" />
 
-        <Label Text="Welcome to Xamarin.Forms!" 
+        <Label  
            HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" x:Name="lblExplanation" />
+           VerticalOptions="CenterAndExpand" TextColor="White" x:Name="lblExplanation" LineBreakMode="WordWrap" LineHeight="1.8" />
         
          
          <Image Source="" x:Name="imgContent" />
 
-        
-        <Button Text="" x:Name="btnChangeSingleData" />
+
+        <Button Text="Yeni Bilgi" TextColor="White" x:Name="btnChangeSingleData" />
         
     </StackLayout>
 

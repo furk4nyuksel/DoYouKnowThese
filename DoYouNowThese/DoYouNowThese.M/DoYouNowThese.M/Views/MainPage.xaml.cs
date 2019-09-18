@@ -1,4 +1,5 @@
 ﻿using DoYouNowThese.CommonModel.InformationContentModel;
+using DoYouNowThese.CommonModel.Infrastructure;
 using DoYouNowThese.M.Operations.InformationContentOperation;
 using System;
 using System.Collections.Generic;
@@ -18,36 +19,30 @@ namespace DoYouNowThese.M
         public MainPage()
         {
             InitializeComponent();
-            ChangeData();
+            InformationContentOperation informationContentOperation = new InformationContentOperation();
+ 
+                InfrastructureModel<InformationContentSingleDataModel> data = informationContentOperation.GetInformationContentSingleData();
+
+                lblExplanation.Text = data.ResultModel.Explanation;
+                lblTitle.Text = data.ResultModel.Title;
+                imgContent.Source = data.ResultModel.ImagePath;
+       
+
             btnChangeSingleData.Clicked += BtnChangeSingleData_Clicked;
         }
 
         private void BtnChangeSingleData_Clicked(object sender, EventArgs e)
         {
-
             InformationContentOperation informationContentOperation = new InformationContentOperation();
-            Task<InformationContentSingleDataModel> taskData = Task<InformationContentOperation>.Run(() => informationContentOperation.GetInformationContentSingleData().Result);
 
-            InformationContentSingleDataModel data = taskData.Result;
+            InfrastructureModel<InformationContentSingleDataModel> data = informationContentOperation.GetInformationContentSingleData();
 
-            lblExplanation.Text = data.Explanation;
-            lblTitle.Text = data.Title;
-            imgContent.Source = data.ImagePath;
+            lblExplanation.Text = data.ResultModel.Explanation;
+            lblTitle.Text = data.ResultModel.Title;
+            imgContent.Source = data.ResultModel.ImagePath;
 
             btnChangeSingleData.Clicked += BtnChangeSingleData_Clicked;
         }
-        public async void ChangeData()
-        {
-            InformationContentOperation informationContentOperation = new InformationContentOperation();
-            Task<InformationContentSingleDataModel> taskData = Task<InformationContentOperation>.Run(() => informationContentOperation.GetInformationContentSingleData().Result);
-            if (taskData.Status == TaskStatus.RanToCompletion)
-            {
-                InformationContentSingleDataModel data = taskData.Result;
-
-                lblExplanation.Text = data.Explanation;
-                lblTitle.Text = data.Title;
-                imgContent.Source = data.ImagePath;
-            }
-        }
+        
     }
 }

@@ -1,8 +1,10 @@
 ﻿using DoYouNowThese.CommonModel.InformationContentModel;
+using DoYouNowThese.CommonModel.Infrastructure;
 using DoYouNowThese.M.Dependencies;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,19 +16,15 @@ namespace DoYouNowThese.M.Operations.InformationContentOperation
     {
         public string _conString = ConnectionStrings.url;
 
-        public async Task<InformationContentSingleDataModel> GetInformationContentSingleData()
+        public   InfrastructureModel<InformationContentSingleDataModel> GetInformationContentSingleData()
         {
-            using (var client = new HttpClient())
+            using (var client = new WebClient())
             {
-                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
 
-                HttpResponseMessage responce = await client.GetAsync(new Uri(_conString+"Information/"));
+                var json = client.DownloadString("http://192.168.1.20/api/Information");
 
-                responce.EnsureSuccessStatusCode();
-                string responceBody = await responce.Content.ReadAsStringAsync();
-                InformationContentSingleDataModel mobileResult = JsonConvert.DeserializeObject<InformationContentSingleDataModel>(responceBody);
-                var result = JsonConvert.DeserializeObject<InformationContentSingleDataModel>(mobileResult.ToString());
-                return result;
+                InfrastructureModel<InformationContentSingleDataModel> mobileResult = JsonConvert.DeserializeObject<InfrastructureModel<InformationContentSingleDataModel>>(json);
+                return mobileResult;
             }
         }
     }

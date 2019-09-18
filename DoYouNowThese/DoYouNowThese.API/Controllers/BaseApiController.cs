@@ -46,5 +46,6 @@ namespace DoYouNowThese.API.Controllers
 
             return new JsonResult(data, serializerSettings);
         }
+
     }
 }
