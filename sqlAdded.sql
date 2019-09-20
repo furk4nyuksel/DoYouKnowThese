@@ -2,7 +2,7 @@
 Use DoYouNowThese
 
 
-Create Table AppUser(AppUserId int identity primary key,Name nvarchar(100),Surname nvarchar(100),Email nvarchar(200),Password nvarchar(max),ResetKeyCode nvarchar(50),CreateDate datetime  not null,IsActive  bit  not null ,IsDeleted bit not null)
+Create Table AppUser(AppUserId int identity primary key,Name nvarchar(100),Surname nvarchar(100),Username nvarchar(50),Email nvarchar(200),Password nvarchar(max),ResetKeyCode nvarchar(50),CreateDate datetime  not null,IsActive  bit  not null ,IsDeleted bit not null)
 
 
 Create Table Category(CategoryId int identity primary key,Name nvarchar(100),CategoryImagePath nvarchar(max),CreateDate datetime  not null  ,IsActive bit  not null  ,IsDeleted bit  not null)

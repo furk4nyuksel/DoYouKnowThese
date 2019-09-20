@@ -21,23 +21,19 @@
           </x:Array>
       </d:ListView.ItemsSource>
       <ListView.Header>
-        <Grid BackgroundColor="#03A9F4">
+           <Grid BackgroundColor="#23374D">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
-          </Grid.RowDefinitions>
           <Label
               Grid.Column="1"
               Grid.Row="2"
-              Text="AppName"
-              Style="{DynamicResource SubtitleStyle}"/>
+              Text="Bunları Biliyor Musun ?" Font="Bold,20" TextColor="#E5E5E5"
+               Opacity="80"  
+              Style="{DynamicResource SubtitleStyle}" Margin="20,-20,-5,20" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
+          
         </Grid>
       </ListView.Header>
       <ListView.ItemTemplate>
@@ -48,7 +44,7 @@
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
                     d:Text="{Binding .}"
-                    FontSize="24"/>
+                    FontSize="12"  TextDecorations = "Underline"/>
             </StackLayout>
           </ViewCell>
         </DataTemplate>

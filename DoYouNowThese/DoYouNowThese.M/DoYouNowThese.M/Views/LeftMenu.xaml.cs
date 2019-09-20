@@ -15,6 +15,7 @@ namespace DoYouNowThese.M.Views
         public LeftMenu()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }
 

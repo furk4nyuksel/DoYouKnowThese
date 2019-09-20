@@ -15,6 +15,8 @@ namespace DoYouNowThese.M.Views
         public LeftMenuDetail()
         {
             InitializeComponent();
+
+            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }

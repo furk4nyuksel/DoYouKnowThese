@@ -21,7 +21,7 @@ namespace DoYouNowThese.M.Operations.InformationContentOperation
             using (var client = new WebClient())
             {
 
-                var json = client.DownloadString("http://192.168.1.20/api/Information");
+                var json = client.DownloadString(ConnectionStrings.url+ "Information/GetSingleContent/");
 
                 InfrastructureModel<InformationContentSingleDataModel> mobileResult = JsonConvert.DeserializeObject<InfrastructureModel<InformationContentSingleDataModel>>(json);
                 return mobileResult;

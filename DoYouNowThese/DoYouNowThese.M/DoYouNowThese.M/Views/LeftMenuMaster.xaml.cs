@@ -20,6 +20,7 @@ namespace DoYouNowThese.M.Views
         public LeftMenuMaster()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
 
             BindingContext = new LeftMenuMasterViewModel();
             ListView = MenuItemsListView;
