@@ -1,4 +1,7 @@
 ﻿using DoYouNowThese.M.Views;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,6 +19,8 @@ namespace DoYouNowThese.M
 
         protected override void OnStart()
         {
+            AppCenter.Start("473680cd-d2cf-4fd5-a6c5-b9032065f975",
+                      typeof(Analytics), typeof(Crashes));
             // Handle when your app starts
         }
 

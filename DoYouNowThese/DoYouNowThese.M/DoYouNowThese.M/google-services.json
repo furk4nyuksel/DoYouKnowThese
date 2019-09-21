@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "227571836978",
+    "firebase_url": "https://doyounowthese.firebaseio.com",
+    "project_id": "doyounowthese",
+    "storage_bucket": "doyounowthese.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227571836978:android:552c12b035de2f2077b42b",
+        "android_client_info": {
+          "package_name": "com.TeknoHisar.DoYouNowThese"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227571836978-u9gn46p53dogae6sg8jofr3mj163ml5f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjVQ59v7GuSdyReT0HPhZNf2QEPsPCCYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227571836978-u9gn46p53dogae6sg8jofr3mj163ml5f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
