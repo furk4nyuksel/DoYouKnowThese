@@ -7,6 +7,7 @@ using DoYouNowThese.CommonModel.InformationContentModel;
 using DoYouNowThese.CommonModel.Infrastructure;
 using DoYouNowThese.CORE;
 using DoYouNowThese.DATA.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -25,6 +26,7 @@ namespace DoYouNowThese.API.Controllers
             db = new DoYouNowTheseContext();
             informationContentOperation = new InformationContentOperation(db);
         }
+        [Authorize]
         [Route("~/api/[controller]/GetSingleContent")]
         [HttpGet]
         public JsonResult GetSingleContent()

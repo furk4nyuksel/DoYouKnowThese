@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -49,6 +52,25 @@ namespace DoYouNowThese.API
 
             services.AddMvc()
          .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(jwtBearerOptions =>
+    {
+        jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateActor = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "www.test.com",
+            ValidAudience = "www.test.com",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Guid.NewGuid().ToString()))
+        };
+    });
+            services.AddMvc();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +78,7 @@ namespace DoYouNowThese.API
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage(); 
+                app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -67,7 +89,7 @@ namespace DoYouNowThese.API
             app.UseMvc();
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
-
+            app.UseAuthentication();
             app.UseSwagger().UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/CoreSwagger/swagger.json", "swagger Test .NetCore");
@@ -75,6 +97,6 @@ namespace DoYouNowThese.API
 
         }
 
-        
+
     }
 }
