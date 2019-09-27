@@ -13,7 +13,7 @@ namespace DoYouNowThese.M
         {
             InitializeComponent();
 
-            MainPage = new LeftMenu();
+            MainPage = new SplashScreen();
         }
 
         protected override void OnStart()
