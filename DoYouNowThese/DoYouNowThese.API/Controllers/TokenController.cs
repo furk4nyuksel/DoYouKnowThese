@@ -93,7 +93,7 @@ namespace DoYouNowThese.API.Controllers
                 issuer: "194.169.120.27",
                 audience: "194.169.120.27",
                 claims: someClaims,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddYears(1),
                 signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
             );
 
