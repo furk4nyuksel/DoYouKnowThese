@@ -61,17 +61,24 @@ namespace DoYouNowThese.API.Controllers
         //    return BadRequest();
         //}
 
-
-        [HttpPost("getnewaccesstoken")]
-        public IActionResult GetToken([FromBody]AppUserLoginModel user)
+        [Route("GetUserToken")]
+        [HttpPost]
+        public IActionResult GetUserToken([FromBody]AppUserLoginModel user)
         {
             Console.WriteLine("User name:{0}", user.UserName);
             Console.WriteLine("Password:{0}", user.Password);
             if (IsValidUserAndPassword(user.UserName, user.Password))
                 return new ObjectResult(GenerateToken(user.UserName));
-
             return Unauthorized();
         }
+
+        [Route("GetAnonimToken")]
+        [HttpPost]
+        public IActionResult GetAnonimToken()
+        {
+            return new ObjectResult(GenerateToken(Guid.NewGuid().ToString()));
+        }
+
 
         private string GenerateToken(string userName)
         {
@@ -95,10 +102,13 @@ namespace DoYouNowThese.API.Controllers
 
         private bool IsValidUserAndPassword(string userName, string password)
         {
-            //Demo için sürekli True döndürdük.
-            //Internal bir NoSQL çözüm üzerinde, username ve passwordleri tutabiliriz.
-            //Client, validation kontrolünden sonra, token almaya hak kazanmalı.
-            return true;
+            bool result = false;
+            var user = appUserOperation.GetLoginUser(userName, password);
+            if (user != null)
+            {
+                result = true;
+            }
+            return result;
         }
 
 

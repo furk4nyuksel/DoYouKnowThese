@@ -44,7 +44,7 @@
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
                     d:Text="{Binding .}"
-                    FontSize="12"  TextDecorations = "Underline"/>
+                    FontSize="25"  TextDecorations = "Underline"/>
             </StackLayout>
           </ViewCell>
         </DataTemplate>

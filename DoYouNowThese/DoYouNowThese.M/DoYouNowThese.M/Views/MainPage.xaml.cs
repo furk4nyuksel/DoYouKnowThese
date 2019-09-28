@@ -21,13 +21,13 @@ namespace DoYouNowThese.M
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
 
-            InformationContentOperation informationContentOperation = new InformationContentOperation();
+            //InformationContentOperation informationContentOperation = new InformationContentOperation();
 
-            InfrastructureModel<InformationContentSingleDataModel> data = informationContentOperation.GetInformationContentSingleData();
+            //InfrastructureModel<InformationContentSingleDataModel> data = informationContentOperation.GetInformationContentSingleData();
 
-            lblExplanation.Text = data.ResultModel.Explanation;
-            lblTitle.Text = data.ResultModel.Title;
-            imgContent.Source = data.ResultModel.ImagePath;
+            //lblExplanation.Text = data.ResultModel.Explanation;
+            //lblTitle.Text = data.ResultModel.Title;
+            //imgContent.Source = data.ResultModel.ImagePath;
 
 
             btnChangeSingleData.Clicked += BtnChangeSingleData_Clicked;
@@ -37,7 +37,7 @@ namespace DoYouNowThese.M
         {
             InformationContentOperation informationContentOperation = new InformationContentOperation();
 
-            InfrastructureModel<InformationContentSingleDataModel> data = informationContentOperation.GetInformationContentSingleData();
+            var data = informationContentOperation.GetInformationContentSingleData();
 
             lblExplanation.Text = data.ResultModel.Explanation;
             lblTitle.Text = data.ResultModel.Title;

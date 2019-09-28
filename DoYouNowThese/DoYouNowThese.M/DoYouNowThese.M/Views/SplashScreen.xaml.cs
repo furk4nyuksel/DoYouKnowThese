@@ -21,7 +21,7 @@ namespace DoYouNowThese.M.Views
         public async Task LogoAnimation()
         {
             imgLogo.Opacity = 0;
-            await imgLogo.FadeTo(1, 4000);
+            await imgLogo.FadeTo(1, 2000);
             Application.Current.MainPage = new LeftMenu();
         }
 
