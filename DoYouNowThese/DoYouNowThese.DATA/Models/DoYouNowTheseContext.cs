@@ -42,6 +42,8 @@ namespace DoYouNowThese.DATA.Models
                 entity.Property(e => e.ResetKeyCode).HasMaxLength(50);
 
                 entity.Property(e => e.Surname).HasMaxLength(100);
+
+                entity.Property(e => e.Username).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -60,12 +62,12 @@ namespace DoYouNowThese.DATA.Models
                 entity.HasOne(d => d.Author)
                     .WithMany(p => p.InformationContent)
                     .HasForeignKey(d => d.AuthorId)
-                    .HasConstraintName("FK__Informati__Autho__5FB337D6");
+                    .HasConstraintName("FK__Informati__Autho__4E88ABD4");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.InformationContent)
                     .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__Informati__Categ__5EBF139D");
+                    .HasConstraintName("FK__Informati__Categ__4D94879B");
             });
 
             modelBuilder.Entity<InformationReadLog>(entity =>
@@ -75,12 +77,12 @@ namespace DoYouNowThese.DATA.Models
                 entity.HasOne(d => d.AppUser)
                     .WithMany(p => p.InformationReadLog)
                     .HasForeignKey(d => d.AppUserId)
-                    .HasConstraintName("FK__Informati__AppUs__628FA481");
+                    .HasConstraintName("FK__Informati__AppUs__5165187F");
 
                 entity.HasOne(d => d.InformationContent)
                     .WithMany(p => p.InformationReadLog)
                     .HasForeignKey(d => d.InformationContentId)
-                    .HasConstraintName("FK__Informati__Infor__6383C8BA");
+                    .HasConstraintName("FK__Informati__Infor__52593CB8");
             });
         }
     }
