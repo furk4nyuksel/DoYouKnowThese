@@ -26,7 +26,7 @@ namespace DoYouNowThese.API.Controllers
             db = new DoYouNowTheseContext();
             informationContentOperation = new InformationContentOperation(db);
         }
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [Route("~/api/[controller]/GetSingleContent")]
         [HttpGet]
         public JsonResult GetSingleContent()

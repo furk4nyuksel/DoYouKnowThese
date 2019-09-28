@@ -27,41 +27,80 @@ namespace DoYouNowThese.API.Controllers
             appUserOperation = new AppUserOperation(db);
         }
 
-        public object AppuserOperation { get; }
+        //[AllowAnonymous]
+        //[HttpPost]
+        //[Route("~/api/[controller]/Post")]
+        //public IActionResult Post([FromBody]AppUserLoginModel request)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = appUserOperation.GetLoginUser(request.UserName, request.Password);
+        //        if (user == null)
+        //        {
+        //            return Unauthorized();
+        //        }
 
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("~/api/[controller]/Post")]
-        public IActionResult Post([FromBody]AppUserLoginModel request)
+        //        var claims = new[]
+        //        {
+        //    new Claim(JwtRegisteredClaimNames.Sub, request.UserName),
+        //    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        //};
+
+        //        var token = new JwtSecurityToken
+        //        (
+        //            issuer: "www.test.com", //appsettings.json içerisinde bulunan issuer değeri
+        //            audience: "www.test.com",//appsettings.json içerisinde bulunan audince değeri
+        //            claims: claims,
+        //            expires: DateTime.UtcNow.AddDays(30), // 30 gün geçerli olacak
+        //            notBefore: DateTime.UtcNow,
+        //            signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Guid.NewGuid().ToString())),//appsettings.json içerisinde bulunan signingkey değeri
+        //                    SecurityAlgorithms.HmacSha256)
+        //        );
+        //        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+        //    }
+        //    return BadRequest();
+        //}
+
+
+        [HttpPost("getnewaccesstoken")]
+        public IActionResult GetToken([FromBody]AppUserLoginModel user)
         {
-            if (ModelState.IsValid)
-            {
-                var user = appUserOperation.GetLoginUser(request.UserName, request.Password);
-                if (user == null)
-                {
-                    return Unauthorized();
-                }
+            Console.WriteLine("User name:{0}", user.UserName);
+            Console.WriteLine("Password:{0}", user.Password);
+            if (IsValidUserAndPassword(user.UserName, user.Password))
+                return new ObjectResult(GenerateToken(user.UserName));
 
-                var claims = new[]
-                {
-            new Claim(JwtRegisteredClaimNames.Sub, request.UserName),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
-
-                var token = new JwtSecurityToken
-                (
-                    issuer: "www.test.com", //appsettings.json içerisinde bulunan issuer değeri
-                    audience: "www.test.com",//appsettings.json içerisinde bulunan audince değeri
-                    claims: claims,
-                    expires: DateTime.UtcNow.AddDays(30), // 30 gün geçerli olacak
-                    notBefore: DateTime.UtcNow,
-                    signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Guid.NewGuid().ToString())),//appsettings.json içerisinde bulunan signingkey değeri
-                            SecurityAlgorithms.HmacSha256)
-                );
-                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
-            }
-            return BadRequest();
+            return Unauthorized();
         }
+
+        private string GenerateToken(string userName)
+        {
+            var someClaims = new Claim[]{
+                new Claim(JwtRegisteredClaimNames.UniqueName,userName),
+                new Claim(JwtRegisteredClaimNames.Email,"info@teknohisar.com"),
+                new Claim(JwtRegisteredClaimNames.NameId,Guid.NewGuid().ToString())
+            };
+
+            SecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("bu_benim_muhtesem_uzunluktaki_muhtesem_saklanmis_guvelik_keyim"));
+            var token = new JwtSecurityToken(
+                issuer: "194.169.120.27",
+                audience: "194.169.120.27",
+                claims: someClaims,
+                expires: DateTime.Now.AddMinutes(1),
+                signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private bool IsValidUserAndPassword(string userName, string password)
+        {
+            //Demo için sürekli True döndürdük.
+            //Internal bir NoSQL çözüm üzerinde, username ve passwordleri tutabiliriz.
+            //Client, validation kontrolünden sonra, token almaya hak kazanmalı.
+            return true;
+        }
+
 
     }
 }

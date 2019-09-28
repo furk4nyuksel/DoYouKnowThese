@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -54,22 +55,60 @@ namespace DoYouNowThese.API
          .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(jwtBearerOptions =>
-    {
-        jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
-        {
-            ValidateActor = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = "www.test.com",
-            ValidAudience = "www.test.com",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Guid.NewGuid().ToString()))
-        };
-    });
-            services.AddMvc();
+            //doğrulama şemalarımı ekliyorum.
+            services.AddAuthentication(options => {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }
+                )
+                //options parametresinin özelliklerini belirliyorum.
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = true,
+                        ValidAudience = "194.169.120.27",
+                        ValidateIssuer = true,
+                        ValidIssuer = "194.169.120.27",
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes("bu_benim_muhtesem_uzunluktaki_muhtesem_saklanmis_guvelik_keyim"))
+                    };
 
+
+
+                    // token doğrulandığında ve çalışır olma süresi dolduğunda devreye giren iki eventim.
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnTokenValidated = ctx =>
+                        {
+                            ctx.Success();
+                            //Gerekirse burada da gelen token içerisindeki çeşitli bilgilere göre doğrulama yapabilmemiz mümkün.
+                            return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = ctx =>
+                        {
+                            Console.WriteLine("Exception:{0}", ctx.Exception.Message);
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
+
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new Info { Title = "You api title", Version = "v1" });
+                c.AddSecurityDefinition("Bearer",
+                    new ApiKeyScheme
+                    {
+                        In = "header",
+                        Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                        Name = "Authorization",
+                        Type = "apiKey"
+                    });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+        { "Bearer", Enumerable.Empty<string>() },
+    });
+
+            });
 
         }
 
@@ -89,11 +128,15 @@ namespace DoYouNowThese.API
             app.UseMvc();
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
-            app.UseAuthentication();
+
             app.UseSwagger().UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/CoreSwagger/swagger.json", "swagger Test .NetCore");
             });
+ 
+            app.UseMvc();
+
+            app.UseAuthentication();
 
         }
 
