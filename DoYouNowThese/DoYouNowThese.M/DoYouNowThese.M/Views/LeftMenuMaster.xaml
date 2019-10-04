@@ -10,7 +10,7 @@
     <ListView x:Name="MenuItemsListView"
               SeparatorVisibility="None"
               HasUnevenRows="true"
-              ItemsSource="{Binding MenuItems}">
+              ItemsSource="{Binding MenuItems}" BackgroundColor="#B1E8ED"> 
       <d:ListView.ItemsSource>
           <x:Array Type="{x:Type x:String}">
               <x:String>Page 1</x:String>
@@ -21,21 +21,24 @@
           </x:Array>
       </d:ListView.ItemsSource>
       <ListView.Header>
-           <Grid BackgroundColor="#23374D">
+           <!--<Grid BackgroundColor="#23374D">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
-          <Label
+          --><!--<Label
               Grid.Column="1"
               Grid.Row="2"
-              Text="Bunları Biliyor Musun ?" Font="Bold,20" TextColor="#E5E5E5"
+              Text="Bunları Biliyor Musun ?" Font="Bold,40" TextColor="#E5E5E5"
                Opacity="80"  
-              Style="{DynamicResource SubtitleStyle}" Margin="20,-20,-5,20" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
-          
-        </Grid>
-      </ListView.Header>
+              Style="{DynamicResource SubtitleStyle}" Margin="20,-20,-5,20" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Center"/>-->
+                    <!--<Image Source="logo.jpg"  Grid.Column="1"
+              Grid.Row="2" x:Name="imgLogo" HeightRequest="200" WidthRequest="200"    />--><!--
+        </Grid>-->
+                <Image Source="logo.jpg"  Grid.Column="1"
+              Grid.Row="1" x:Name="imgLogo" HeightRequest="300" WidthRequest="300"    />
+            </ListView.Header>
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
@@ -44,7 +47,7 @@
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
                     d:Text="{Binding .}"
-                    FontSize="25"  TextDecorations = "Underline"/>
+                    FontSize="25" FontAttributes="Bold"   TextColor="#272121"/>
             </StackLayout>
           </ViewCell>
         </DataTemplate>
