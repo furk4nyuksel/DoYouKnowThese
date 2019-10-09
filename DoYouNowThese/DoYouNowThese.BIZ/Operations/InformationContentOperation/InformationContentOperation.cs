@@ -33,5 +33,20 @@ namespace DoYouNowThese.BIZ.Operations.InformationContentOperation
             }
             return informationContent;
         }
+
+        public InformationContent GetCategorySingleInformationContent(int appUserId=0,int categoryId = 0)
+        {
+            List<int> readList = informationReadLogOperation.GetReadedInformationContentByAppUserId(appUserId);
+            InformationContent informationContent = new InformationContent();
+            if (readList != null)
+            {
+                informationContent = context.InformationContent.Include(s => s.Author).Include(a => a.Category).Where(s => s.IsActive && !s.IsDeleted && !readList.Contains(s.InformationContentId)&&s.CategoryId==categoryId).OrderBy(s => Guid.NewGuid()).Take(1).SingleOrDefault();
+            }
+            else
+            {
+                informationContent = context.InformationContent.Where(s => s.IsActive && !s.IsDeleted && s.CategoryId == categoryId).OrderBy(s => Guid.NewGuid()).Take(1).SingleOrDefault();
+            }
+            return informationContent;
+        }
     }
 }
