@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
+using DoYouNowThese.API.Utility;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -54,6 +55,13 @@ namespace DoYouNowThese.API
             services.AddMvc()
          .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+ 
+
+            services.AddMvc(config =>
+            {
+                config.Filters.Add<MyExceptionFilter>();
+            })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //doğrulama şemalarımı ekliyorum.
             services.AddAuthentication(options => {

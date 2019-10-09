@@ -48,7 +48,7 @@ namespace DoYouNowThese.API.Controllers
             catch (Exception ex)
             {
                 response.ResultStatus = false;
-                throw;
+                throw ex;
             }
             return new JsonResult(response);
         }
@@ -77,7 +77,7 @@ namespace DoYouNowThese.API.Controllers
                 catch (Exception ex)
                 {
                     response.ResultStatus = false;
-                    throw;
+                    throw ex;
                 }
                 return new JsonResult(response);
 
@@ -86,7 +86,7 @@ namespace DoYouNowThese.API.Controllers
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
     }
