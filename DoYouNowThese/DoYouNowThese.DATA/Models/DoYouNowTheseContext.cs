@@ -17,6 +17,7 @@ namespace DoYouNowThese.DATA.Models
 
         public virtual DbSet<AppUser> AppUser { get; set; }
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<ErrorEntity> ErrorEntity { get; set; }
         public virtual DbSet<InformationContent> InformationContent { get; set; }
         public virtual DbSet<InformationReadLog> InformationReadLog { get; set; }
 
@@ -50,6 +51,26 @@ namespace DoYouNowThese.DATA.Models
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<ErrorEntity>(entity =>
+            {
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.AppUser)
+                    .WithMany(p => p.ErrorEntity)
+                    .HasForeignKey(d => d.AppUserId)
+                    .HasConstraintName("FK__ErrorEnti__AppUs__628FA481");
             });
 
             modelBuilder.Entity<InformationContent>(entity =>

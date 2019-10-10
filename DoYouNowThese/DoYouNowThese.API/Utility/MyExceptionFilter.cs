@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DoYouNowThese.BIZ.Operations.ErrorEntityOperation;
+using DoYouNowThese.DATA.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -11,11 +13,47 @@ namespace DoYouNowThese.API.Utility
 {
     public class MyExceptionFilter : IExceptionFilter
     {
+        DoYouNowTheseContext dbcontext;
+        ErrorEntityOperation errorEntityOperation;
+        public MyExceptionFilter()
+        {
+            dbcontext = new DoYouNowTheseContext();
+            errorEntityOperation = new ErrorEntityOperation(dbcontext);
+        }
         public void OnException(ExceptionContext context)
         {
             HttpStatusCode status = HttpStatusCode.InternalServerError;
             var message = "Server error occurred.";
 
+            var actionName = context.RouteData.Values["action"];
+            var controllerName = context.RouteData.Values["controller"];
+
+
+ 
+            ErrorEntity errorEntity = new ErrorEntity()
+            {
+                ActionName = actionName.ToString(),
+                ControllerName=controllerName.ToString(),
+                CreateDate=DateTime.Now,
+                InnerExceptionText=context.Exception.InnerException!=null?context.Exception.InnerException.ToString():string.Empty,
+                MessageText=context.Exception.Message,
+                StackTraceText=context.Exception.StackTrace,
+                ApiController=controllerName.ToString(),
+                ApiAction=actionName.ToString(),
+                IsActive=true,
+                IsDeleted=false,
+                ParameterName="",
+            };
+
+
+            #region request parameter
+
+            //bunu araştır
+            string test = string.Empty;
+ 
+
+
+            #endregion
             var exceptionType = context.Exception.GetType();
             //if (exceptionType is MyCustomException) //Checking for my custom exception type
             //{
