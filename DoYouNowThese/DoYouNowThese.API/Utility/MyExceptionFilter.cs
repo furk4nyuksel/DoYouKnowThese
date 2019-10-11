@@ -23,13 +23,10 @@ namespace DoYouNowThese.API.Utility
         public void OnException(ExceptionContext context)
         {
             HttpStatusCode status = HttpStatusCode.InternalServerError;
-            var message = "Server error occurred.";
 
             var actionName = context.RouteData.Values["action"];
             var controllerName = context.RouteData.Values["controller"];
 
-
- 
             ErrorEntity errorEntity = new ErrorEntity()
             {
                 CreateDate=DateTime.Now,

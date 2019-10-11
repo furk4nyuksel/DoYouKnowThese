@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace DoYouNowThese.M.Operations.InformationContentOperation
 {
-   public class InformationContentOperation
+   public class InformationContentProvider
     {
 
         public   InfrastructureModel<InformationContentSingleDataModel> GetInformationContentSingleData()

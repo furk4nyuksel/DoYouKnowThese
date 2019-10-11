@@ -35,15 +35,13 @@ namespace DoYouNowThese.M
 
         private void BtnChangeSingleData_Clicked(object sender, EventArgs e)
         {
-            InformationContentOperation informationContentOperation = new InformationContentOperation();
+            InformationContentProvider informationContentProvider = new InformationContentProvider();
 
-            var data = informationContentOperation.GetInformationContentSingleData();
+            var data = informationContentProvider.GetInformationContentSingleData();
 
             lblExplanation.Text = data.ResultModel.Explanation;
             lblTitle.Text = data.ResultModel.Title;
             imgContent.Source = data.ResultModel.ImagePath;
-
-            btnChangeSingleData.Clicked += BtnChangeSingleData_Clicked;
         }
 
     }
