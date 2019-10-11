@@ -32,8 +32,6 @@ namespace DoYouNowThese.API.Utility
  
             ErrorEntity errorEntity = new ErrorEntity()
             {
-                ActionName = actionName.ToString(),
-                ControllerName=controllerName.ToString(),
                 CreateDate=DateTime.Now,
                 InnerExceptionText=context.Exception.InnerException!=null?context.Exception.InnerException.ToString():string.Empty,
                 MessageText=context.Exception.Message,
@@ -42,9 +40,9 @@ namespace DoYouNowThese.API.Utility
                 ApiAction=actionName.ToString(),
                 IsActive=true,
                 IsDeleted=false,
-                ParameterName="",
             };
 
+            errorEntityOperation.Insert(errorEntity);
 
             #region request parameter
 
@@ -66,7 +64,7 @@ namespace DoYouNowThese.API.Utility
             HttpResponse response = context.HttpContext.Response;
             response.StatusCode = (int)status;
             response.ContentType = "application/json";
-            //context.Result = new ObjectResult(new ApiResponse { Message = message, Data = null });
+            context.Result = new ObjectResult(errorEntity);
         }
     }
 }
