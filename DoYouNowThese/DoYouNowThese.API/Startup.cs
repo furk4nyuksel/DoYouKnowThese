@@ -60,6 +60,8 @@ namespace DoYouNowThese.API
             services.AddMvc(config =>
             {
                 config.Filters.Add<MyExceptionFilter>();
+                config.Filters.Add<MyActionFilter>();
+
             })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

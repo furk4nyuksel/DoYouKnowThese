@@ -10,6 +10,7 @@ namespace DoYouNowThese.DATA.Models
             ErrorEntity = new HashSet<ErrorEntity>();
             InformationContent = new HashSet<InformationContent>();
             InformationReadLog = new HashSet<InformationReadLog>();
+            LogEntity = new HashSet<LogEntity>();
         }
 
         public int AppUserId { get; set; }
@@ -26,5 +27,6 @@ namespace DoYouNowThese.DATA.Models
         public ICollection<ErrorEntity> ErrorEntity { get; set; }
         public ICollection<InformationContent> InformationContent { get; set; }
         public ICollection<InformationReadLog> InformationReadLog { get; set; }
+        public ICollection<LogEntity> LogEntity { get; set; }
     }
 }

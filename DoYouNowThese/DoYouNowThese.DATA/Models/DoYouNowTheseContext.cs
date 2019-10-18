@@ -20,11 +20,13 @@ namespace DoYouNowThese.DATA.Models
         public virtual DbSet<ErrorEntity> ErrorEntity { get; set; }
         public virtual DbSet<InformationContent> InformationContent { get; set; }
         public virtual DbSet<InformationReadLog> InformationReadLog { get; set; }
+        public virtual DbSet<LogEntity> LogEntity { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=194.169.120.27;Database=DoYouNowThese;User Id=sa;Password = Fibanez756.;");
             }
         }
@@ -103,6 +105,22 @@ namespace DoYouNowThese.DATA.Models
                     .WithMany(p => p.InformationReadLog)
                     .HasForeignKey(d => d.InformationContentId)
                     .HasConstraintName("FK__Informati__Infor__52593CB8");
+            });
+
+            modelBuilder.Entity<LogEntity>(entity =>
+            {
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.AppUser)
+                    .WithMany(p => p.LogEntity)
+                    .HasForeignKey(d => d.AppUserId)
+                    .HasConstraintName("FK__LogEntity__AppUs__68487DD7");
             });
         }
     }
