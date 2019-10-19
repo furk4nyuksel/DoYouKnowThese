@@ -1,4 +1,4 @@
-﻿using DoYouNowThese.M.Operations.TokenOperation;
+﻿using DoYouNowThese.PROVIDER.TokenOperation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +13,15 @@ namespace DoYouNowThese.M.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SplashScreen : ContentPage
     {
-        TokenOperation tokenOperation;
+        TokenProvider tokeProvider;
         public SplashScreen()
         {
             InitializeComponent();
 
-            tokenOperation = new TokenOperation();
+            tokeProvider = new TokenProvider();
             if (!App.Current.Properties.ContainsKey("token"))
             {
-                string token = tokenOperation.GetAnonimToken();
+                string token = tokeProvider.GetAnonimToken();
                 Application.Current.Properties["token"] = token;
                 Application.Current.SavePropertiesAsync();
             }

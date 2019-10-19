@@ -1,6 +1,7 @@
 ﻿using DoYouNowThese.CommonModel.InformationContentModel;
 using DoYouNowThese.CommonModel.Infrastructure;
-using DoYouNowThese.M.Operations.InformationContentOperation;
+using DoYouNowThese.M.Dependencies;
+using DoYouNowThese.PROVIDER.Providers.InformationContentOperation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,7 +38,7 @@ namespace DoYouNowThese.M
         {
             InformationContentProvider informationContentProvider = new InformationContentProvider();
 
-            var data = informationContentProvider.GetInformationContentSingleData();
+            var data = informationContentProvider.GetInformationContentSingleData(TokenAccesModel.accesValue);
 
             lblExplanation.Text = data.ResultModel.Explanation;
             lblTitle.Text = data.ResultModel.Title;

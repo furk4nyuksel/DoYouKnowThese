@@ -1,6 +1,7 @@
 ﻿using DoYouNowThese.CommonModel.Infrastructure;
 using DoYouNowThese.DATA.Models;
-using DoYouNowThese.M.Operations.CategoryOperation;
+using DoYouNowThese.M.Dependencies;
+using DoYouNowThese.PROVIDER.Providers.CategoryOperation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,22 +23,22 @@ namespace DoYouNowThese.M.Views
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
 
-            //CategoryProvider categoryOperation = new CategoryProvider();
+            CategoryProvider categoryOperation = new CategoryProvider();
 
-            //StackLayout stacklayout = new StackLayout();
+            StackLayout stacklayout = new StackLayout();
 
-            //InfrastructureModel<List<Category>> data = categoryOperation.GetInformationContentSingleData();
-            //foreach (var category in data.ResultModel)
-            //{
-            //    Button button = new Button()
-            //    {
-            //        Text=category.Name,
-            //        ImageSource=category.CategoryImagePath
-            //    };
-            //    stacklayout.Children.Add(button);
-            //}
+            InfrastructureModel<List<Category>> data = categoryOperation.GetInformationContentSingleData(TokenAccesModel.accesValue);
+            foreach (var category in data.ResultModel)
+            {
+                Button button = new Button()
+                {
+                    Text = category.Name,
+                    ImageSource = category.CategoryImagePath
+                };
+                stacklayout.Children.Add(button);
+            }
 
-            //this.Content = stacklayout;
+            this.Content = stacklayout;
         }
 
 

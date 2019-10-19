@@ -1,18 +1,15 @@
-﻿using DoYouNowThese.M.Dependencies;
+﻿using DoYouNowThese.PROVIDER.Infrastructure;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 
-namespace DoYouNowThese.M.Operations.TokenOperation
+namespace DoYouNowThese.PROVIDER.TokenOperation
 {
-    public class TokenOperation
+   public class TokenProvider
     {
-        public string _conString = ConnectionStrings.url;
-
-        public string  GetAnonimToken()
+        public string GetAnonimToken()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -21,9 +18,9 @@ namespace DoYouNowThese.M.Operations.TokenOperation
 
                 string userName = JsonConvert.SerializeObject(Guid.NewGuid().ToString());
 
-                StringContent content = new StringContent(userName,Encoding.UTF8, "application/json");
+                StringContent content = new StringContent(userName, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage httpResponceMessage = client.PostAsync(_conString + "Token/GetAnonimToken/",content).Result;
+                HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "Token/GetAnonimToken/", content).Result;
                 httpResponceMessage.EnsureSuccessStatusCode();
 
                 string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;

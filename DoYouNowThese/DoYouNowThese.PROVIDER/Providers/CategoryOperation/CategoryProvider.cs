@@ -1,29 +1,27 @@
 ﻿using DoYouNowThese.CommonModel.Infrastructure;
 using DoYouNowThese.DATA.Models;
-using DoYouNowThese.M.Dependencies;
+using DoYouNowThese.PROVIDER.Infrastructure;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using Xamarin.Forms;
 
-namespace DoYouNowThese.M.Operations.CategoryOperation
+namespace DoYouNowThese.PROVIDER.Providers.CategoryOperation
 {
-   public class CategoryProvider
+    public class CategoryProvider
     {
-        public InfrastructureModel<List<Category>> GetInformationContentSingleData()
+        public InfrastructureModel<List<Category>> GetInformationContentSingleData(string tokenKey)
         {
             InfrastructureModel<List<Category>> resultModel = new InfrastructureModel<List<Category>>();
             using (HttpClient client = new HttpClient())
             {
-                string tokenKey = Application.Current.Properties["token"].ToString();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenAccesModel.accesValue);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenKey);
                 client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json charset=utf-8");
                 client.DefaultRequestHeaders.Accept.Clear();
 
-                HttpResponseMessage httpResponceMessage = client.GetAsync(ConnectionStrings.url + "Category/GetAllCategoryList/").Result;
+                HttpResponseMessage httpResponceMessage = client.GetAsync(ConnectionHelper.GetConnectionUrl() + "Category/GetAllCategoryList/").Result;
                 httpResponceMessage.EnsureSuccessStatusCode();
 
                 string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;

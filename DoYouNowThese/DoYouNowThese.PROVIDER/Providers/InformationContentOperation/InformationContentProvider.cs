@@ -1,32 +1,27 @@
 ﻿using DoYouNowThese.CommonModel.InformationContentModel;
 using DoYouNowThese.CommonModel.Infrastructure;
-using DoYouNowThese.M.Dependencies;
+using DoYouNowThese.PROVIDER.Infrastructure;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace DoYouNowThese.M.Operations.InformationContentOperation
+namespace DoYouNowThese.PROVIDER.Providers.InformationContentOperation
 {
-   public class InformationContentProvider
+    public class InformationContentProvider
     {
-
-        public   InfrastructureModel<InformationContentSingleDataModel> GetInformationContentSingleData()
+        public InfrastructureModel<InformationContentSingleDataModel> GetInformationContentSingleData(string tokenKey)
         {
             InfrastructureModel<InformationContentSingleDataModel> resultModel = new InfrastructureModel<InformationContentSingleDataModel>();
-            using (HttpClient client=new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
-                string tokenKey = Application.Current.Properties["token"].ToString();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",TokenAccesModel.accesValue);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenKey);
                 client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json charset=utf-8");
                 client.DefaultRequestHeaders.Accept.Clear();
 
-                HttpResponseMessage httpResponceMessage = client.GetAsync(ConnectionStrings.url + "Information/GetSingleContent/").Result;
+                HttpResponseMessage httpResponceMessage = client.GetAsync(ConnectionHelper.GetConnectionUrl() + "Information/GetSingleContent/").Result;
                 httpResponceMessage.EnsureSuccessStatusCode();
 
                 string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;
