@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace DoYouNowThese.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Admin/[controller]/[action]")]
     public class HomeController : BaseController
     {
         public IActionResult Index()
