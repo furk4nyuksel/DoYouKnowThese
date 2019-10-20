@@ -13,6 +13,8 @@ namespace DoYouNowThese.DATA.Models
         public DateTime CreateDate { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public string ApiControllerName { get; set; }
+        public string ApiActionName { get; set; }
 
         public AppUser AppUser { get; set; }
     }

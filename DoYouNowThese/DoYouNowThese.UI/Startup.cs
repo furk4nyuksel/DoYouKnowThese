@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DoYouNowThese.UI.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -43,6 +44,13 @@ namespace DoYouNowThese.UI
                 // Make the session cookie essential
                 options.Cookie.IsEssential = true;
             });
+
+            services.AddMvc(config =>
+          {
+              config.Filters.Add<MyExceptionFilter>();
+              config.Filters.Add<MyActionFilter>();
+
+          });
 
             services.Configure<CookiePolicyOptions>(options =>
             {

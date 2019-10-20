@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DoYouNowThese.API.Utility
+namespace DoYouNowThese.UI.Utility
 {
     public class MyActionFilter : IActionFilter
     {
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            
+
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
@@ -23,14 +23,14 @@ namespace DoYouNowThese.API.Utility
             var type = context.HttpContext.Request.Method.ToString();
             LogEntity logEntity = new LogEntity()
             {
-                ApiActionName = actionName,
-                ApiControllerName = controllerName,
+                ActionName = actionName,
+                ControllerName = controllerName,
                 ActionType = type,
                 CreateDate = DateTime.Now,
                 IsActive = true,
                 IsDeleted = false,
             };
-              LogEntityOperation.Insert(logEntity);
+            LogEntityOperation.Insert(logEntity);
         }
     }
 }
