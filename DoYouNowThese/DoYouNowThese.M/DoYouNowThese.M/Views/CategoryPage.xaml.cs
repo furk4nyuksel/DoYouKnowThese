@@ -31,7 +31,7 @@ namespace DoYouNowThese.M.Views
                 Button button = new Button()
                 {
                     Text = category.Name,
-                    ImageSource = category.CategoryImagePath
+                    ImageSource = category.CategoryImagePath,
                 };
                 stacklayout.Children.Add(button);
             }
