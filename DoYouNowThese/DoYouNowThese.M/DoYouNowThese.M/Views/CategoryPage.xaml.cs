@@ -4,7 +4,6 @@ using DoYouNowThese.M.Dependencies;
 using DoYouNowThese.PROVIDER.Providers.CategoryOperation;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +14,7 @@ using Xamarin.Forms.Xaml;
 namespace DoYouNowThese.M.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [DesignTimeVisible(false)]
-    public partial class CategoryPage : ContentView
+    public partial class CategoryPage : ContentPage
     {
         public CategoryPage()
         {
@@ -40,7 +38,5 @@ namespace DoYouNowThese.M.Views
 
             this.Content = stacklayout;
         }
-
-
     }
 }
