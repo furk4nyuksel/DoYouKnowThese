@@ -28,15 +28,28 @@ namespace DoYouNowThese.M.Views
             InfrastructureModel<List<Category>> data = categoryOperation.GetInformationContentSingleData(TokenAccesModel.accesValue);
             foreach (var category in data.ResultModel)
             {
-                Button button = new Button()
+                Button btnCategoryLink = new Button()
                 {
                     Text = category.Name,
                     ImageSource = category.CategoryImagePath,
+                    ClassId=category.CategoryId.ToString()
                 };
-                stacklayout.Children.Add(button);
+                btnCategoryLink.Clicked += BtnCategoryLink_Clicked;
+                stacklayout.Children.Add(btnCategoryLink);
             }
 
             this.Content = stacklayout;
+        }
+
+        private void BtnCategoryLink_Clicked(object sender, EventArgs e)
+        {
+            Button findButton = (Button)sender;
+            if (findButton != null)
+            {
+                int categoryId = int.Parse(findButton.ClassId);
+            }
+
+             
         }
     }
 }
