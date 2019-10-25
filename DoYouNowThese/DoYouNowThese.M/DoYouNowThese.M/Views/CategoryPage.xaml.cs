@@ -1,7 +1,9 @@
-﻿using DoYouNowThese.CommonModel.Infrastructure;
+﻿using DoYouNowThese.CommonModel.InformationContentModel;
+using DoYouNowThese.CommonModel.Infrastructure;
 using DoYouNowThese.DATA.Models;
 using DoYouNowThese.M.Dependencies;
 using DoYouNowThese.PROVIDER.Providers.CategoryOperation;
+using DoYouNowThese.PROVIDER.Providers.InformationContentOperation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,22 +36,24 @@ namespace DoYouNowThese.M.Views
                     ImageSource = category.CategoryImagePath,
                     ClassId=category.CategoryId.ToString()
                 };
-                btnCategoryLink.Clicked += BtnCategoryLink_Clicked;
+                btnCategoryLink.Clicked +=  BtnCategoryLink_Clicked;
                 stacklayout.Children.Add(btnCategoryLink);
             }
 
             this.Content = stacklayout;
         }
 
-        private void BtnCategoryLink_Clicked(object sender, EventArgs e)
+        private async void BtnCategoryLink_Clicked(object sender, EventArgs e)
         {
             Button findButton = (Button)sender;
+            int categoryId = 0;
             if (findButton != null)
             {
-                int categoryId = int.Parse(findButton.ClassId);
+                categoryId = int.Parse(findButton.ClassId);
             }
 
-             
+           await Navigation.PushAsync(new MainPageCategory(categoryId));
+ 
         }
     }
 }

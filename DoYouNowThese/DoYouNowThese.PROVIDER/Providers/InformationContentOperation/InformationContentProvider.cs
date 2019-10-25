@@ -30,5 +30,29 @@ namespace DoYouNowThese.PROVIDER.Providers.InformationContentOperation
                 return resultModel;
             }
         }
+        public InfrastructureModel<InformationContentSingleDataModel> GetInformationCategoryContentSingleData(InformationContentPostModel postModel)
+        {
+            InfrastructureModel<InformationContentSingleDataModel> resultModel = new InfrastructureModel<InformationContentSingleDataModel>();
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", postModel.TokenKey);
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json charset=utf-8");
+                client.DefaultRequestHeaders.Accept.Clear();
+
+                var serializeJsonObject = JsonConvert.SerializeObject(postModel);
+                StringContent content = new StringContent(serializeJsonObject, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "Information/GetCategorySingleContent/", content).Result;
+                httpResponceMessage.EnsureSuccessStatusCode();
+
+                string response = httpResponceMessage.Content.ReadAsStringAsync().Result;
+
+                resultModel = JsonConvert.DeserializeObject<InfrastructureModel<InformationContentSingleDataModel>>(response);
+
+                return resultModel;
+            }
+        }
+
     }
 }

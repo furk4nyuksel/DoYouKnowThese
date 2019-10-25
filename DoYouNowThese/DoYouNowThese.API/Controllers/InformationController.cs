@@ -55,7 +55,7 @@ namespace DoYouNowThese.API.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [Route("~/api/[controller]/GetCategorySingleContent")]
-        [HttpGet]
+        [HttpPost]
         public JsonResult GetCategorySingleContent(InformationContentPostModel model)
         {
             try

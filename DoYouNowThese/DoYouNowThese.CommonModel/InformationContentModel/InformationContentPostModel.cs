@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DoYouNowThese.CommonModel.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DoYouNowThese.CommonModel.InformationContentModel
 {
-    public class InformationContentPostModel
+    public class InformationContentPostModel:GeneralModel
     {
         public int AppUserId { get; set; }
 
