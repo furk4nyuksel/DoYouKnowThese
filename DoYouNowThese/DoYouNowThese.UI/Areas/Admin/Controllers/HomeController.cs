@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DoYouNowThese.CommonModel.AppUserModel;
 using DoYouNowThese.DATA.Models;
+using DoYouNowThese.PROVIDER.Providers.AppUserOperation;
 using DoYouNowThese.UI.Controllers;
 using DoYouNowThese.UI.Models.Utility;
 using DoYouNowThese.UI.Utility;
@@ -14,30 +15,39 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Login")]
         public JsonResult Login(AppUserLoginModel appUserModel)
         {
             Response response = new Response();
             try
             {
-                AppUser appUser = SessionExtension.Get<AppUser>(HttpContext.Session, "Login");
-                if (appUser!=null)
+                AppUserProvider appUserProvider = new AppUserProvider();
+
+                AppUserModel appuserModel= appUserProvider.GetLoginUser(appUserModel).ResultModel;
+
+                if (appuserModel != null)
                 {
-                    response.Message = "Session Dolu";
-                    response.Status = true;
+                    SessionExtension.Set<AppUserModel>(HttpContext.Session, "Login", appuserModel);
+
+                    response = new Response()
+                    {
+                        Message = "Succes",
+                        Status = true
+                    };
                 }
                 else
                 {
-                    response.Message = "Session Boş";
-                    response.Status = true;
+                   
                 }
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;

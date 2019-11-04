@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DoYouNowThese.UI.Models;
+using DoYouNowThese.CommonModel.AppUserModel;
 
 namespace DoYouNowThese.UI.Controllers
 {
@@ -33,5 +34,6 @@ namespace DoYouNowThese.UI.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

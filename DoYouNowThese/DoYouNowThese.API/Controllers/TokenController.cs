@@ -17,7 +17,7 @@ namespace DoYouNowThese.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TokenController : ControllerBase
+    public class TokenController : BaseApiController
     {
         DoYouNowTheseContext db;
         AppUserOperation appUserOperation;
@@ -65,10 +65,17 @@ namespace DoYouNowThese.API.Controllers
         [HttpPost]
         public IActionResult GetUserToken([FromBody]AppUserLoginModel user)
         {
-            Console.WriteLine("User name:{0}", user.UserName);
-            Console.WriteLine("Password:{0}", user.Password);
-            if (IsValidUserAndPassword(user.UserName, user.Password))
-                return new ObjectResult(GenerateToken(user.UserName));
+            var appUser = appUserOperation.GetLoginUser(user.UserName, user.Password);
+
+            if (appUser!=null)
+            {
+                AppUserModel appUserModel = new AppUserModel();
+                string tokenKey = GenerateToken(user.UserName);
+                appUserModel.TokenKey = tokenKey;
+                appUserModel.AppUser = appUser;
+                return Json(appUserModel);
+            }
+    
             return Unauthorized();
         }
 
@@ -100,16 +107,7 @@ namespace DoYouNowThese.API.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private bool IsValidUserAndPassword(string userName, string password)
-        {
-            bool result = false;
-            var user = appUserOperation.GetLoginUser(userName, password);
-            if (user != null)
-            {
-                result = true;
-            }
-            return result;
-        }
+ 
 
 
     }

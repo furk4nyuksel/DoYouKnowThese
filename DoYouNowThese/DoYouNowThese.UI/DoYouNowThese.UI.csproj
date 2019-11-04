@@ -23,6 +23,7 @@
     <ProjectReference Include="..\DoYouNowThese.BIZ\DoYouNowThese.BIZ.csproj" />
     <ProjectReference Include="..\DoYouNowThese.CommonModel\DoYouNowThese.CommonModel.csproj" />
     <ProjectReference Include="..\DoYouNowThese.DATA\DoYouNowThese.DATA.csproj" />
+    <ProjectReference Include="..\DoYouNowThese.PROVIDER\DoYouNowThese.PROVIDER.csproj" />
   </ItemGroup>
 
 </Project>

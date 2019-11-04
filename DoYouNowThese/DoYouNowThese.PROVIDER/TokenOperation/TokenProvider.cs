@@ -1,4 +1,5 @@
-﻿using DoYouNowThese.PROVIDER.Infrastructure;
+﻿using DoYouNowThese.CommonModel.AppUserModel;
+using DoYouNowThese.PROVIDER.Infrastructure;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,26 @@ namespace DoYouNowThese.PROVIDER.TokenOperation
                 StringContent content = new StringContent(userName, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "Token/GetAnonimToken/", content).Result;
+                httpResponceMessage.EnsureSuccessStatusCode();
+
+                string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;
+
+                return stringResponce;
+            }
+        }
+
+        public string GetLoginUserToken(AppUserLoginModel model)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json charset=utf-8");
+                client.DefaultRequestHeaders.Accept.Clear();
+
+                string modelString = JsonConvert.SerializeObject(model);
+
+                StringContent content = new StringContent(modelString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "Token/GetUserToken/", content).Result;
                 httpResponceMessage.EnsureSuccessStatusCode();
 
                 string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;
