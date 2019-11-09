@@ -5,19 +5,21 @@ using System.Threading.Tasks;
 
 namespace DoYouNowThese.UI.Models.Utility
 {
-    public class Response
+    public class Response: ResponseGeneralModel
     {
-        public bool Status { get; set; }
-
-        public string Message { get; set; }
     }
 
-    public class Response<T>
+    public class Response<T>: ResponseGeneralModel
+    {
+        public T Data { get; set; }
+    }
+
+    public class ResponseGeneralModel
     {
         public bool Status { get; set; }
 
         public string Message { get; set; }
 
-        public T Data { get; set; }
+        public string RedirectUrl { get; set; }
     }
 }

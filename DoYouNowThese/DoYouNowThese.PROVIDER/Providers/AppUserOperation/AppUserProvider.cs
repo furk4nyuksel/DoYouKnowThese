@@ -14,7 +14,7 @@ namespace DoYouNowThese.PROVIDER.Providers.AppUserOperation
     {
         public InfrastructureModel<AppUserModel> GetLoginUser(AppUserLoginModel loginModel)
         {
-            InfrastructureModel<AppUserModel> resultModel = new InfrastructureModel<AppUserModel>();
+            InfrastructureModel<AppUserModel> infrastructureModel = new InfrastructureModel<AppUserModel>();
             using (HttpClient client = new HttpClient())
             {
                 //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenKey);
@@ -29,8 +29,13 @@ namespace DoYouNowThese.PROVIDER.Providers.AppUserOperation
 
                 string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;
 
-                resultModel = JsonConvert.DeserializeObject<InfrastructureModel<AppUserModel>>(stringResponce);
-                return resultModel;
+                infrastructureModel.ResultModel = JsonConvert.DeserializeObject<AppUserModel>(stringResponce);
+
+                if (infrastructureModel.ResultModel != null)
+                {
+                    infrastructureModel.ResultStatus = true;
+                }
+                return infrastructureModel;
             }
         }
     }

@@ -21,7 +21,7 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("Login")]
+        //[Route("Login")]
         public JsonResult Login(AppUserLoginModel appUserModel)
         {
             Response response = new Response();
@@ -38,7 +38,8 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
                     response = new Response()
                     {
                         Message = "Succes",
-                        Status = true
+                        Status = true,
+                        RedirectUrl=Url.Action("Home","Index",new {area="Admin" })
                     };
                 }
                 else
@@ -49,8 +50,11 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-
-                throw;
+                response = new Response()
+                {
+                    Message = "Fail",
+                    Status = false
+                };
             }
             return Json(response);
         }
