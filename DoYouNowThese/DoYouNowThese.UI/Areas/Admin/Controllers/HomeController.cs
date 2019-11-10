@@ -15,6 +15,11 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeController : BaseController
     {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public IActionResult Login()
         {
             return View();
@@ -37,9 +42,9 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
 
                     response = new Response()
                     {
-                        Message = "Succes",
+                        Message = "success",
                         Status = true,
-                        RedirectUrl=Url.Action("Home","Index",new {area="Admin" })
+                        RedirectUrl=Url.Action("Index","Home",new {area="Admin" })
                     };
                 }
                 else

@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 namespace DoYouNowThese.UI
 {
     public class Startup
@@ -59,6 +58,7 @@ namespace DoYouNowThese.UI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddMvc().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,7 +97,7 @@ namespace DoYouNowThese.UI
                  name: "default",
                  pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            
+
 
 
         }
