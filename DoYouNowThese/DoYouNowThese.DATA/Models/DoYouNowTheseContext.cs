@@ -26,6 +26,8 @@ namespace DoYouNowThese.DATA.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+                //dotnet ef dbcontext scaffold "Server=194.169.120.27;Database=DoYouNowThese;User Id=sa;Password = Fibanez756.;" Microsoft.EntityFrameworkCore.SqlServer -o Models  --project DoYouNowThese.DATA  --force
+
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=194.169.120.27;Database=DoYouNowThese;User Id=sa;Password = Fibanez756.;");
             }

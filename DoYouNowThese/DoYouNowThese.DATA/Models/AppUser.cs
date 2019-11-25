@@ -20,6 +20,7 @@ namespace DoYouNowThese.DATA.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string ResetKeyCode { get; set; }
+        public string UserImagePath { get; set; }
         public DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
