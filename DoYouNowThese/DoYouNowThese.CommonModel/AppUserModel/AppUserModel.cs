@@ -10,5 +10,7 @@ namespace DoYouNowThese.CommonModel.AppUserModel
         public AppUser AppUser { get; set; }
 
         public string TokenKey { get; set; }
+
+        public bool Result { get; set; }
     }
 }

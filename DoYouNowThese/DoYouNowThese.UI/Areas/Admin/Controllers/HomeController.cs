@@ -63,5 +63,20 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
             }
             return Json(response);
         }
+
+        [HttpGet]
+        public PartialViewResult _UserInfo()
+        {
+            AppUserModel userModel = new AppUserModel();
+            userModel = SessionExtension.Get<AppUserModel>(HttpContext.Session, "Login");
+            if (userModel != null)
+            {
+                return PartialView(userModel);
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

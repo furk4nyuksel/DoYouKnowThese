@@ -55,7 +55,7 @@
     <!-- Scripts -->
     <script src="~/AdminContent/vendor/breakpoints/breakpoints.minfd53.js?v4.0.1"></script>
     <script>
-    Breakpoints();
+        Breakpoints();
     </script>
 </head>
 <body class="animsition dashboard">
@@ -537,20 +537,27 @@
     </nav>
     <div class="site-menubar">
         <div class="site-menubar-header">
-            <div class="cover overlay">
-                <img class="cover-image" src="~/AdminContent/assets/examples/images/dashboard-header.jpg" alt="...">
-                <div class="overlay-panel vertical-align overlay-background">
-                    <div class="vertical-align-middle">
-                        <a class="avatar avatar-lg" href="javascript:void(0)">
-                            <img src="~/AdminContent/portraits/1.jpg" alt="">
-                        </a>
-                        <div class="site-menubar-info">
-                            <h5 class="site-menubar-user">Machi</h5>
-                            <p class="site-menubar-email"><a href="https://getbootstrapadmin.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5c8c4c6cdccc1c0d6ccc2cbe5c2c8c4ccc98bc6cac8">[email&#160;protected]</a></p>
+            @*<div class="cover overlay">
+                    <img class="cover-image" src="~/AdminContent/assets/examples/images/dashboard-header.jpg" alt="...">
+                    <div class="overlay-panel vertical-align overlay-background">
+                        <div class="vertical-align-middle">
+                            <a class="avatar avatar-lg" href="javascript:void(0)">
+                                <img src="~/AdminContent/portraits/1.jpg" alt="">
+                            </a>
+                            <div class="site-menubar-info">
+                                <h5 class="site-menubar-user">Machi</h5>
+                                <p class="site-menubar-email"><a href="https://getbootstrapadmin.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5c8c4c6cdccc1c0d6ccc2cbe5c2c8c4ccc98bc6cac8">[email&#160;protected]</a></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>*@
+            @*@await Component.InvokeAsync("AppuserView")*@
+
+
+            @await Component.InvokeAsync(typeof(DoYouNowThese.UI.Areas.Admin.ViewComponents.AppuserViewComponent));
+
+
+
         </div>
 
         <div class="site-menubar-body">
@@ -1574,5 +1581,5 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 </body>
 
- 
+
 </html>
