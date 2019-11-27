@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
@@ -21,6 +17,11 @@
     <ProjectReference Include="..\DoYouNowThese.CommonModel\DoYouNowThese.CommonModel.csproj" />
     <ProjectReference Include="..\DoYouNowThese.CORE\DoYouNowThese.CORE.csproj" />
     <ProjectReference Include="..\DoYouNowThese.DATA\DoYouNowThese.DATA.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Content\AuthorPhoto\" />
+    <Folder Include="wwwroot\Content\" />
   </ItemGroup>
 
 </Project>

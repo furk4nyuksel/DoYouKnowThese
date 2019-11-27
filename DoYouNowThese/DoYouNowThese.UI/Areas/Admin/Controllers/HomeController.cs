@@ -22,7 +22,17 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
 
         public IActionResult Login()
         {
-            return View();
+            
+            AppUserModel userModel = new AppUserModel();
+            userModel = SessionExtension.Get<AppUserModel>(HttpContext.Session, "Login");
+            if (userModel != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
