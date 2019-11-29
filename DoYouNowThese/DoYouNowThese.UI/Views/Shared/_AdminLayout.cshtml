@@ -305,22 +305,8 @@
                             </a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
-                           data-animation="scale-up" role="button">
-                            <span class="avatar avatar-online">
-                                <img src="~/AdminContent/portraits/5.jpg" alt="...">
-                                <i></i>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-account" aria-hidden="true"></i> Profile</a>
-                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-card" aria-hidden="true"></i> Billing</a>
-                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-settings" aria-hidden="true"></i> Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
-                        </div>
-                    </li>
+
+                    @await Component.InvokeAsync(typeof(DoYouNowThese.UI.Areas.Admin.ViewComponents.ProfileViewComponent))
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" title="Notifications"
                            aria-expanded="false" data-animation="scale-up" role="button">
@@ -537,26 +523,8 @@
     </nav>
     <div class="site-menubar">
         <div class="site-menubar-header">
-            @*<div class="cover overlay">
-                    <img class="cover-image" src="~/AdminContent/assets/examples/images/dashboard-header.jpg" alt="...">
-                    <div class="overlay-panel vertical-align overlay-background">
-                        <div class="vertical-align-middle">
-                            <a class="avatar avatar-lg" href="javascript:void(0)">
-                                <img src="~/AdminContent/portraits/1.jpg" alt="">
-                            </a>
-                            <div class="site-menubar-info">
-                                <h5 class="site-menubar-user">Machi</h5>
-                                <p class="site-menubar-email"><a href="https://getbootstrapadmin.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5c8c4c6cdccc1c0d6ccc2cbe5c2c8c4ccc98bc6cac8">[email&#160;protected]</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
-            @*@await Component.InvokeAsync("AppuserView")*@
-
 
             @await Component.InvokeAsync(typeof(DoYouNowThese.UI.Areas.Admin.ViewComponents.AppuserViewComponent))
-
-
 
         </div>
 

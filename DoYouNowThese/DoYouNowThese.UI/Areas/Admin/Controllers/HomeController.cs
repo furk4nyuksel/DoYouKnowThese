@@ -54,7 +54,7 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
                     {
                         Message = "success",
                         Status = true,
-                        RedirectUrl=Url.Action("Index","Home",new {area="Admin" })
+                        RedirectUrl=Url.Action("Index","Home",new {Area="Admin" })
                     };
                 }
                 else
@@ -87,6 +87,13 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
             {
                 return null;
             }
+        }
+
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Remove("Login");
+
+            return RedirectToAction("Index", "Home", new { Area = "Admin" });
         }
     }
 }

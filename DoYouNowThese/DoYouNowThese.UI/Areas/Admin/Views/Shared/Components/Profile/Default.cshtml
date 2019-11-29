@@ -1,0 +1,30 @@
+﻿@model DoYouNowThese.CommonModel.AppUserModel.AppUserModel
+@using DoYouNowThese.CORE
+@if (Model != null)
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
+           data-animation="scale-up" role="button">
+            <span class="avatar avatar-online">
+                @if (Model.AppUser.UserImagePath != null)
+                {
+                    <img src="@UrlHelper.AuthorPhotoPath@Model.AppUser.UserImagePath" alt="@Model.AppUser.UserImagePath">
+                }
+                else
+                {
+                    <img src="~/AdminContent/portraits/5.jpg" alt="...">
+                }
+                <i></i>
+            </span>
+        </a>
+        <div class="dropdown-menu" role="menu">
+            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-account" aria-hidden="true"></i> Profile</a>
+            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-card" aria-hidden="true"></i> Billing</a>
+            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-settings" aria-hidden="true"></i> Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="@Url.Action("Logout","Home",new {area="Admin" })" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
+        </div>
+    </li>
+}
+
+
