@@ -15,6 +15,7 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeController : BaseController
     {
+        [SessionControl]
         public IActionResult Index()
         {
             return View();
@@ -73,7 +74,7 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
             }
             return Json(response);
         }
-
+        [SessionControl]
         [HttpGet]
         public PartialViewResult _UserInfo()
         {
@@ -89,6 +90,7 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
             }
         }
 
+        [SessionControl]
         public ActionResult Logout()
         {
             HttpContext.Session.Remove("Login");
