@@ -56,13 +56,13 @@
 
 <!-- Core  -->
 <script src="~/lib/swal/sweetalert2.all.js"></script>
- 
-<script src="~/AdminContent/vendor/jquery/jquery.minfd53.js?v4.0.1"></script>
- 
- 
- 
 
- 
+<script src="~/AdminContent/vendor/jquery/jquery.minfd53.js?v4.0.1"></script>
+
+
+
+
+
 
 <script>
     (function (document, window, $) {
@@ -107,9 +107,16 @@
                         icon: 'success',
                         timer: 1000
                     });
-                    setTimeout(function () {
-                        window.location.href = result.redirectUrl;
-                    }, 1000);
+
+                    if (result.RedirectUrl != null) {
+                        setTimeout(function () {
+                            window.location.href = result.redirectUrl;
+                        }, 1000);
+                    }
+                    else {
+                        $("#InformationContentFormPost")[0].reset();
+                    }
+
 
                 } else {
                     Swal.fire({
