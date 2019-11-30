@@ -20,7 +20,7 @@ namespace DoYouNowThese.API.Controllers
     {
         DoYouNowTheseContext db;
         InformationContentOperation informationContentOperation;
-       
+
         public InformationController()
         {
             db = new DoYouNowTheseContext();
@@ -89,5 +89,50 @@ namespace DoYouNowThese.API.Controllers
                 throw ex;
             }
         }
+
+        public JsonResult InsertInformationContent(InformationContentCRUDModel model)
+        {
+            InfrastructureModel response;
+            try
+            {
+
+                if (model != null)
+                {
+                    InformationContent informationContent = new InformationContent()
+                    {
+                        CategoryId=model.CategoryId,
+                        AuthorId=model.AuthorId,
+                        CreateDate=DateTime.Now,
+                        IsActive=true,
+                        IsDeleted=false,
+                        Explanation=model.Explanation,
+                        LikeCount=model.LikeCount,
+                        Title=model.Title,
+                    };
+
+                    informationContentOperation.Insert(informationContent);
+
+                    response = new InfrastructureModel()
+                    {
+                        ResultStatus=true
+                    };
+                }
+                else
+                {
+                    response = new InfrastructureModel()
+                    {
+                        ResultStatus = false
+                    };
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return Json(response);
+        }
+
     }
 }

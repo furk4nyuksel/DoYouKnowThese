@@ -18,6 +18,11 @@ namespace DoYouNowThese.BIZ.Operations.InformationContentOperation
             context = _context;
             informationReadLogOperation = new InformationReadLogOperation(context);
         }
+        public void Insert(InformationContent entity)
+        {
+            context.InformationContent.Add(entity);
+            context.SaveChanges();
+        }
 
         public InformationContent GetSingleInformationContent(int appUserId=0)
         {
