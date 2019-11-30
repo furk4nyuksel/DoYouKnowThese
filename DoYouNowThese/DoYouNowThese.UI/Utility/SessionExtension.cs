@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DoYouNowThese.CommonModel.AppUserModel;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,13 @@ namespace DoYouNowThese.UI.Utility
 
             return value == null ? default(T) :
                 JsonConvert.DeserializeObject<T>(value);
+        }
+
+        public static string GetSessionUserTokeyKey(this ISession session)
+        {
+            AppUserModel userModel = new AppUserModel();
+            userModel = SessionExtension.Get<AppUserModel>(session, "Login");
+            return userModel.TokenKey;
         }
     }
 }

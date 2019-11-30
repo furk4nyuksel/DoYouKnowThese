@@ -12,7 +12,7 @@ namespace DoYouNowThese.PROVIDER.Providers.CategoryOperation
 {
     public class CategoryProvider
     {
-        public InfrastructureModel<List<Category>> GetInformationContentSingleData(string tokenKey)
+        public InfrastructureModel<List<Category>> GetCategoryList(string tokenKey)
         {
             InfrastructureModel<List<Category>> resultModel = new InfrastructureModel<List<Category>>();
             using (HttpClient client = new HttpClient())

@@ -1,36 +1,114 @@
-﻿
+﻿@model DoYouNowThese.UI.Areas.Admin.Models.InformationContent.InformationContentCRUDModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AjaxTagHelper
 @{
     ViewData["Title"] = "Insert";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">Standard Mode</h3>
+        <h3 class="panel-title">İçerik Oluştur</h3>
     </div>
     <div class="panel-body">
-        <form class="form-horizontal" id="exampleStandardForm" autocomplete="off">
+        <form id="InformationContentFormPost" asp-area="Admin" asp-action="Insert" asp-controller="InformationContent" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
             <div class="form-group row form-material">
-                <label class="col-md-3 form-control-label">Full name</label>
+                <label class="col-md-3 form-control-label">Başlık</label>
                 <div class="col-md-9">
-                    <input type="text" class="form-control" name="standard_fullName" />
+                    @Html.TextBoxFor(s => s.Title, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group row form-material">
-                <label class="col-md-3 form-control-label">Email</label>
+                <label class="col-md-3 form-control-label">İçerik</label>
                 <div class="col-md-9">
                     <input type="text" class="form-control" name="standard_email" />
+                    @Html.TextAreaFor(s => s.Explanation, new { @class = "form-control", rows = 5 })
                 </div>
             </div>
             <div class="form-group row form-material">
-                <label class="col-md-3 form-control-label">Content</label>
+                <label class="col-md-3 form-control-label">Kategori</label>
                 <div class="col-md-9">
-                    <textarea class="form-control" name="standard_content" rows="5"></textarea>
+                    @Html.DropDownListFor(s => s.CategoryId, Model.CategoryList, new { @class = "form-control show-tick", data_plugin = "selectpicker" })
                 </div>
             </div>
-            <div class="text-right">
-                <button type="submit" class="btn btn-primary" id="validateButton2">Submit</button>
+
+            <div class="form-group row form-material">
+                <label class="col-md-3 form-control-label">Dosya</label>
+                <div class="col-md-9">
+                    @Html.TextBoxFor(s => s.PostImagePath, new { @class = "form-control", @type = "file", data_plugin = "dropify", data_default_file = "" })
+
+                </div>
             </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+
+
+
         </form>
     </div>
 </div>
+
+
+
+<script>
+    (function (document, window, $) {
+        'use strict';
+
+        var Site = window.Site;
+        $(document).ready(function () {
+            Site.run();
+        });
+    })(document, window, jQuery);
+</script>
+
+  
+<script>
+    completed = function (xhr) {
+        alert(`Hi ${xhr.Message}!`);
+    };
+
+    $(function () {
+        $("#InformationContentFormPost").submit(function (e) {
+            e.preventDefault();
+
+            console.log('Doing ajax submit');
+
+            var formAction = $(this).attr("action");
+            var formData = new FormData($('#InformationContentFormPost')[0]);
+
+            $.ajax({
+                type: 'post',
+                url: formAction,
+                data: formData,
+                processData: false,
+                contentType: false
+            }).done(function (result) {
+                // do something with the result now
+                console.log(result);
+                if (result.message === "success") {
+                    Swal.fire({
+                        title: result.message,
+                        icon: 'success',
+                        timer: 1000
+                    });
+                    setTimeout(function () {
+                        window.location.href = result.redirectUrl;
+                    }, 1000);
+
+                } else {
+                    Swal.fire({
+                        title: result.message,
+                        icon: 'error',
+                    });
+                }
+            });
+        });
+    })
+</script>
+
+
+

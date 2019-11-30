@@ -27,7 +27,7 @@ namespace DoYouNowThese.M.Views
 
             StackLayout stacklayout = new StackLayout();
 
-            InfrastructureModel<List<Category>> data = categoryOperation.GetInformationContentSingleData(TokenAccesModel.accesValue);
+            InfrastructureModel<List<Category>> data = categoryOperation.GetCategoryList(TokenAccesModel.accesValue);
             foreach (var category in data.ResultModel)
             {
                 Button btnCategoryLink = new Button()

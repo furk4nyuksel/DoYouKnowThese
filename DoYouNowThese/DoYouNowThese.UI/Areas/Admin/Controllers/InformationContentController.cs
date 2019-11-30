@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DoYouNowThese.CommonModel.InformationContentModel;
+using DoYouNowThese.CommonModel.Infrastructure;
+using DoYouNowThese.DATA.Models;
+using DoYouNowThese.PROVIDER.Providers.CategoryOperation;
 using DoYouNowThese.PROVIDER.Providers.InformationContentOperation;
 using DoYouNowThese.UI.Areas.Admin.Models.InformationContent;
 using DoYouNowThese.UI.Controllers;
+using DoYouNowThese.UI.Models.Utility;
 using DoYouNowThese.UI.Utility;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DoYouNowThese.UI.Areas.Admin.Controllers
 {
@@ -16,6 +21,7 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
     public class InformationContentController : BaseController
     {
         InformationContentProvider informationContentProvider;
+        CategoryProvider categoryProvider;
 
         public IActionResult Index()
         {
@@ -25,24 +31,46 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
 
         public IActionResult Insert()
         {
-            return View();
+            InformationContentCRUDModel informationContentCRUDModel = new InformationContentCRUDModel();
+            categoryProvider = new CategoryProvider();
+
+            InfrastructureModel<List<Category>> infrastructerCategoryList = categoryProvider.GetCategoryList(SessionExtension.GetSessionUserTokeyKey(HttpContext.Session));
+
+            informationContentCRUDModel.CategoryList = new SelectList(infrastructerCategoryList.ResultModel, "CategoryId", "Name");
+
+            return View(informationContentCRUDModel);
         }
 
         [HttpPost]
-        public IActionResult Insert(InformationContentCRUDModel informationContentCRUDModel)
+        public JsonResult Insert(InformationContentCRUDModel informationContentCRUDModel)
         {
-            informationContentProvider = new InformationContentProvider();
+            Response response = new Response();
+            try
+            {
+                informationContentProvider = new InformationContentProvider();
 
 
-            InformationApiContentCRUDModel apiContentCRUDModel = new InformationApiContentCRUDModel();
+                InformationApiContentCRUDModel apiContentCRUDModel = new InformationApiContentCRUDModel();
 
 
+                informationContentProvider.InsertInformationContent(apiContentCRUDModel);
 
+                response = new Response()
+                {
+                    Message = "Succes",
+                    Status = true
+                };
+            }
+            catch (Exception)
+            {
+                response = new Response()
+                {
+                    Message = "Failed",
+                    Status = false
+                };
+            }
 
-
-            informationContentProvider.InsertInformationContent(apiContentCRUDModel);
-
-            return View();
+            return Json(response);
         }
     }
 }
