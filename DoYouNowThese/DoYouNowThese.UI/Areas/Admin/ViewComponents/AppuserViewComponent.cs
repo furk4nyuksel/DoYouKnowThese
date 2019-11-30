@@ -1,5 +1,4 @@
 ﻿using DoYouNowThese.CommonModel.AppUserModel;
-using DoYouNowThese.UI.Areas.Admin.Models.UserInfo;
 using DoYouNowThese.UI.Utility;
 using Microsoft.AspNetCore.Mvc;
 using System;

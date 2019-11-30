@@ -90,7 +90,10 @@ namespace DoYouNowThese.API.Controllers
             }
         }
 
-        public JsonResult InsertInformationContent(InformationContentCRUDModel model)
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Route("~/api/[controller]/InsertInformationContent")]
+        [HttpPost]
+        public JsonResult InsertInformationContent(InformationApiContentCRUDModel model)
         {
             InfrastructureModel response;
             try

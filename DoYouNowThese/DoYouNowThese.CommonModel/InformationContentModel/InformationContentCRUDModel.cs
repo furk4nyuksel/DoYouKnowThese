@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DoYouNowThese.CommonModel.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DoYouNowThese.CommonModel.InformationContentModel
 {
-   public class InformationContentCRUDModel
+   public class InformationApiContentCRUDModel: GeneralModel
     {
         public int InformationContentId { get; set; }
         public string Title { get; set; }

@@ -54,5 +54,27 @@ namespace DoYouNowThese.PROVIDER.Providers.InformationContentOperation
             }
         }
 
+        public InfrastructureModel InsertInformationContent(InformationApiContentCRUDModel postModel)
+        {
+            InfrastructureModel resultModel = new InfrastructureModel();
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", postModel.TokenKey);
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json charset=utf-8");
+                client.DefaultRequestHeaders.Accept.Clear();
+
+                var serializeJsonObject = JsonConvert.SerializeObject(postModel);
+                StringContent content = new StringContent(serializeJsonObject, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "Information/InsertInformationContent/", content).Result;
+                httpResponceMessage.EnsureSuccessStatusCode();
+
+                string response = httpResponceMessage.Content.ReadAsStringAsync().Result;
+
+                return resultModel;
+            }
+        }
+
     }
 }
