@@ -142,7 +142,7 @@ namespace DoYouNowThese.API.Controllers
         [HttpGet]
         public JsonResult GetAllInformationContent()
         {
-            InfrastructureModel<InformationContentSingleDataModel> response = new InfrastructureModel<InformationContentSingleDataModel>();
+            InfrastructureModel<List<InformationContentSingleDataModel>> response = new InfrastructureModel<List<InformationContentSingleDataModel>>();
             List<InformationContentSingleDataModel> resultModel = new List<InformationContentSingleDataModel>();
             try
             {
@@ -153,8 +153,8 @@ namespace DoYouNowThese.API.Controllers
                 {
                     resultModel.Add(new InformationContentSingleDataModel()
                     {
-                        AuthorFullName = info.Author.Name + " " + info.Author.Surname,
-                        CategoryName = info.Category.Name,
+                        AuthorFullName = info.Author!=null?info.Author.Name + " " + info.Author.Surname:string.Empty,
+                        CategoryName = info.Category!=null?info.Category.Name:string.Empty,
                         Explanation = info.Explanation,
                         ImagePath = info.PostImagePath,
                         LikeCount = info.LikeCount.ToString(),
@@ -163,6 +163,7 @@ namespace DoYouNowThese.API.Controllers
                 }
 
                 response.ResultStatus = true;
+                response.ResultModel = resultModel;
             }
             catch (Exception ex)
             {

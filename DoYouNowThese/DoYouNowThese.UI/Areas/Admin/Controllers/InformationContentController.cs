@@ -26,7 +26,10 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            informationContentProvider = new InformationContentProvider();
+
+            InfrastructureModel<List<InformationContentSingleDataModel>> infrastructureModelList = informationContentProvider.GetListInformationContent(SessionExtension.GetSessionUserTokeyKey(HttpContext.Session)); 
+            return View(infrastructureModelList);
         }
 
 

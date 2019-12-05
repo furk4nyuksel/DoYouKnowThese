@@ -1,8 +1,27 @@
-﻿
+﻿@model DoYouNowThese.CommonModel.Infrastructure.InfrastructureModel<List<DoYouNowThese.CommonModel.InformationContentModel.InformationContentSingleDataModel>>
+@using DoYouNowThese.CORE
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+<table class="table table-active table-bordered table-condensed table-responsive">
+    <tr>Resim</tr>
+    <tr>Başlık</tr>
+    <tr>Açıklama</tr>
+    <tr>Kategori Adı</tr>
+    <tr>Yazar Adı</tr>
+    <tr>Beğeni</tr>
 
+    @foreach (var info in Model.ResultModel)
+    {
+        <tr>
+            <td>@UrlHelper.AuthorPhotoPath@info.ImagePath</td>
+            <td>@info.Title</td>
+            <td>@info.Explanation</td>
+            <td>@info.CategoryName</td>
+            <td>@info.AuthorFullName</td>
+            <td>@info.LikeCount</td>
+        </tr>
+    }
+</table>
