@@ -53,5 +53,12 @@ namespace DoYouNowThese.BIZ.Operations.InformationContentOperation
             }
             return informationContent;
         }
+
+        public List<InformationContent> GetAllInformationContent()
+        {
+
+            List<InformationContent> informationContent = context.InformationContent.Where(s => s.IsActive && !s.IsDeleted).ToList();
+            return informationContent;
+        }
     }
 }

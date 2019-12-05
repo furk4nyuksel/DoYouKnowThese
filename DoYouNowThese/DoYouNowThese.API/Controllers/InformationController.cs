@@ -137,5 +137,39 @@ namespace DoYouNowThese.API.Controllers
             return Json(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Route("~/api/[controller]/GetAllInformationContent")]
+        [HttpGet]
+        public JsonResult GetAllInformationContent()
+        {
+            InfrastructureModel<InformationContentSingleDataModel> response = new InfrastructureModel<InformationContentSingleDataModel>();
+            List<InformationContentSingleDataModel> resultModel = new List<InformationContentSingleDataModel>();
+            try
+            {
+                List<InformationContent> informationContextList = informationContentOperation.GetAllInformationContent();
+
+
+                foreach (var info in informationContextList)
+                {
+                    resultModel.Add(new InformationContentSingleDataModel()
+                    {
+                        AuthorFullName = info.Author.Name + " " + info.Author.Surname,
+                        CategoryName = info.Category.Name,
+                        Explanation = info.Explanation,
+                        ImagePath = info.PostImagePath,
+                        LikeCount = info.LikeCount.ToString(),
+                        Title = info.Title
+                    });
+                }
+
+                response.ResultStatus = true;
+            }
+            catch (Exception ex)
+            {
+                response.ResultStatus = false;
+                throw ex;
+            }
+            return new JsonResult(response);
+        }
     }
 }
