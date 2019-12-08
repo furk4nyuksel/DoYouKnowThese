@@ -1,4 +1,5 @@
 ﻿using DoYouNowThese.CommonModel.Infrastructure;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,6 @@ namespace DoYouNowThese.CommonModel.InformationContentModel
         public int? CategoryId { get; set; }
         public int? AuthorId { get; set; }
         public int LikeCount { get; set; }
+        public List<IFormFile> FormFileList { get; set; }
     }
 }

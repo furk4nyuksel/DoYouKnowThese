@@ -56,7 +56,6 @@ namespace DoYouNowThese.BIZ.Operations.InformationContentOperation
 
         public List<InformationContent> GetAllInformationContent()
         {
-
             List<InformationContent> informationContent = context.InformationContent.Where(s => s.IsActive && !s.IsDeleted).Include(s=>s.Author).Include(s=>s.Category).ToList();
             return informationContent;
         }
