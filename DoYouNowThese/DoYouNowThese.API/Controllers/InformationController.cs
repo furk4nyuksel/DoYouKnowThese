@@ -10,6 +10,7 @@ using DoYouNowThese.CommonModel.Infrastructure;
 using DoYouNowThese.CORE;
 using DoYouNowThese.DATA.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,9 +23,10 @@ namespace DoYouNowThese.API.Controllers
     {
         DoYouNowTheseContext db;
         InformationContentOperation informationContentOperation;
-
-        public InformationController()
+        private IHostingEnvironment _env;
+        public InformationController(IHostingEnvironment environment)
         {
+            _env = environment;
             db = new DoYouNowTheseContext();
             informationContentOperation = new InformationContentOperation(db);
         }
@@ -95,7 +97,7 @@ namespace DoYouNowThese.API.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         [Route("~/api/[controller]/InsertInformationContent")]
         [HttpPost]
-        public JsonResult InsertInformationContent(InformationApiContentCRUDModel model)
+        public JsonResult InsertInformationContent([FromForm]InformationApiContentCRUDModel model)
         {
             InfrastructureModel response;
             try
@@ -115,30 +117,42 @@ namespace DoYouNowThese.API.Controllers
                         Title=model.Title,
                     };
 
-                     
 
-                    long size = model.FormFileList.Sum(f => f.Length);
 
-                    var filePaths = new List<string>();
-                    foreach (var formFile in model.FormFileList)
+                    long size = model.PostImageFile.Length;
+
+                    if (model.PostImageFile != null)
                     {
-                        if (formFile.Length > 0)
-                        {
-                            // full path to file in temp location
-                            var filePath = Path.GetTempFileName(); //we are using Temp file name just for the example. Add your own file path.
-                            filePaths.Add(filePath);
+                        string filePath = Path.Combine(_env.WebRootPath, "Content", "Information");
 
-                            using (var stream = new FileStream(filePath, FileMode.Create))
+                        string imagePath = string.Empty;
+
+                        string fileExtension = Path.GetExtension(model.PostImageFile.FileName);
+
+                        string fileName = (Guid.NewGuid() + fileExtension);
+
+                        if (model.PostImageFile.Length > 0)
+                        {
+                            using (var ms = new MemoryStream())
                             {
-                                //await formFile.CopyToAsync(stream);
+                                model.PostImageFile.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                imagePath = Convert.ToBase64String(fileBytes);
+                            }
+                            var bytes = Convert.FromBase64String(imagePath);
+                            using (var imageFile = new FileStream(Path.Combine(filePath, fileName), FileMode.Create))
+                            {
+                                imageFile.Write(bytes, 0, bytes.Length);
+                                imageFile.Flush();
                             }
                         }
+                        informationContent.PostImagePath = fileName;
                     }
 
 
-                    //informationContentOperation.Insert(informationContent);
+                    informationContentOperation.Insert(informationContent);
 
-                    response = new InfrastructureModel()
+                   response = new InfrastructureModel()
                     {
                         ResultStatus=true
                     };
@@ -152,7 +166,7 @@ namespace DoYouNowThese.API.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;

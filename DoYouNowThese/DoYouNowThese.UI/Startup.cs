@@ -59,6 +59,8 @@ namespace DoYouNowThese.UI
             });
 
             services.AddMvc().AddRazorRuntimeCompilation();
+
+            services.AddMvc(option => option.EnableEndpointRouting = false) ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,24 +86,23 @@ namespace DoYouNowThese.UI
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "areaRoute",
+                    // if you don't have such an area named as `areaName` already, 
+                    //    don't make the part of `{area}` optional by `{area:exists}`
+                    template: "{area}/{controller=Home}/{action=Index}");
 
-
-
-
-                endpoints.MapControllerRoute(
-                 name: "default",
-                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapAreaControllerRoute(
- name: "areas", "Admin",
- pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
+          
 
 
         }
+ 
     }
 }
