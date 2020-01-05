@@ -60,14 +60,19 @@ namespace DoYouNowThese.PROVIDER.Providers.InformationContentOperation
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", postModel.TokenKey);
-                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json charset=utf-8");
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "multipart/form-data charset=utf-8");
                 client.DefaultRequestHeaders.Accept.Clear();
 
                 var serializeJsonObject = JsonConvert.SerializeObject(postModel);
-                StringContent content = new StringContent(serializeJsonObject, Encoding.UTF8, "application/json");
+                StringContent content = new StringContent(serializeJsonObject, Encoding.UTF8, "multipart/form-data");
 
+                MultipartFormDataContent multipartFormDataContent = new MultipartFormDataContent();
 
-                HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "Information/InsertInformationContent/", content).Result;
+                multipartFormDataContent.Add(content);
+
+                multipartFormDataContent.Add(postModel.ImageArrayList, "PostImageFile", Guid.NewGuid().ToString()+postModel.PostImagePath);
+
+                HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "Information/InsertInformationContent/", multipartFormDataContent).Result;
                 httpResponceMessage.EnsureSuccessStatusCode();
 
                 string response = httpResponceMessage.Content.ReadAsStringAsync().Result;

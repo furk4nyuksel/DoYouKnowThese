@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Http;
 using System.Text;
 
 namespace DoYouNowThese.CommonModel.InformationContentModel
@@ -19,6 +20,8 @@ namespace DoYouNowThese.CommonModel.InformationContentModel
         public int? CategoryId { get; set; }
         public int? AuthorId { get; set; }
         public int LikeCount { get; set; }
+
+        public ByteArrayContent ImageArrayList { get; set; }
         public List<IFormFile> FormFileList { get; set; }
     }
 

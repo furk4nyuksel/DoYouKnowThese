@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using DoYouNowThese.CommonModel.AppUserModel;
 using DoYouNowThese.CommonModel.InformationContentModel;
@@ -65,6 +67,18 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
                     TokenKey=appUserModel.TokenKey
                 };
 
+
+                byte[] data;
+                using (var ms = new MemoryStream())
+                {
+                    informationContentCRUDModel.InformationImage.CopyTo(ms);
+                    apiContentCRUDModel.PostImagePath= Path.GetExtension(informationContentCRUDModel.InformationImage.FileName);
+                    data = ms.ToArray();
+                }
+
+                var fileContent = new ByteArrayContent(data);
+
+                apiContentCRUDModel.ImageArrayList = fileContent;
 
                 informationContentProvider.InsertInformationContent(apiContentCRUDModel);
 

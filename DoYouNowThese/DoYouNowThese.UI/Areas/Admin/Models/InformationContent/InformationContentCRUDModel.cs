@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,9 @@ namespace DoYouNowThese.UI.Areas.Admin.Models.InformationContent
         public int? CategoryId { get; set; }
         public int? AuthorId { get; set; }
         public int LikeCount { get; set; }
+        public string PathExtension { get; set; }
 
+        public IFormFile InformationImage { get; set; }
 
         #region SelectList
 
