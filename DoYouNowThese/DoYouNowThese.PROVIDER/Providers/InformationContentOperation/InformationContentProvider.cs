@@ -64,11 +64,24 @@ namespace DoYouNowThese.PROVIDER.Providers.InformationContentOperation
                 client.DefaultRequestHeaders.Accept.Clear();
 
                 var serializeJsonObject = JsonConvert.SerializeObject(postModel);
-                StringContent content = new StringContent(serializeJsonObject, Encoding.UTF8, "multipart/form-data");
+                //StringContent content = new StringContent(serializeJsonObject, Encoding.UTF8, "multipart/form-data");
 
                 MultipartFormDataContent multipartFormDataContent = new MultipartFormDataContent();
 
-                multipartFormDataContent.Add(content);
+                multipartFormDataContent.Add(new StringContent(postModel.Title,UTF8Encoding.UTF8),"Title");
+
+                multipartFormDataContent.Add(new StringContent(postModel.Explanation,UTF8Encoding.UTF8),"Explanation");
+
+                if (postModel.CategoryId != null)
+                {
+                    multipartFormDataContent.Add(new StringContent(postModel.CategoryId.ToString(), UTF8Encoding.UTF8), "CategoryId");
+                }
+
+                if (postModel.AuthorId != null)
+                {
+                    multipartFormDataContent.Add(new StringContent(postModel.AuthorId.ToString(), UTF8Encoding.UTF8), "AuthorId");
+                }
+
 
                 multipartFormDataContent.Add(postModel.ImageArrayList, "PostImageFile", Guid.NewGuid().ToString()+postModel.PostImagePath);
 

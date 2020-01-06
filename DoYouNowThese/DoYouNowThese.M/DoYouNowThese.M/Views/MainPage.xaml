@@ -16,7 +16,7 @@
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" TextColor="White" x:Name="lblExplanation" FontSize="Body" LineBreakMode="WordWrap" LineHeight="1.8" />
         
-         <Image Source="" x:Name="imgContent" HeightRequest="50" WidthRequest="100" Margin="40"/>
+         <Image  x:Name="imgContent" HeightRequest="100" WidthRequest="100" Margin="40"/>
 
         <Button Text="Yeni Bilgi"  Margin="20" WidthRequest="80" HeightRequest="80"  CornerRadius ="40" VerticalOptions="Center" HorizontalOptions ="Center" BackgroundColor="#f75f00"  TextColor="White" x:Name="btnChangeSingleData" />
         

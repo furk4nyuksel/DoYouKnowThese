@@ -42,7 +42,7 @@ namespace DoYouNowThese.API.Controllers
                 InformationContent informationContext = informationContentOperation.GetSingleInformationContent(0);
                 resultModel.AuthorFullName = informationContext.Author.Name + " " + informationContext.Author.Surname;
                 resultModel.Explanation = informationContext.Explanation;
-                resultModel.ImagePath = informationContext.PostImagePath;
+                resultModel.ImagePath = UrlHelper.InformationPhotoPath+"/"+informationContext.PostImagePath;
                 resultModel.LikeCount = informationContext.LikeCount.ToString();
                 resultModel.Title = informationContext.Title;
 
