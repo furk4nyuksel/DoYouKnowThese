@@ -4,20 +4,51 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="DoYouNowThese.M.MainPage">
+             x:Class="DoYouNowThese.M.MainPage" x:Name="contentPage">
 
-    <StackLayout Padding="5,10" BackgroundColor="#43ab92">
-        <!-- Place new controls here -->
-        <Label 
+
+    <!--<Grid>
+        <Image Source="..." />
+        <Grid>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="1">
+            </StackLayout>
+            
+           <Label 
            HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" TextColor="White" x:Name="lblTitle" FontSize="25" LineBreakMode="WordWrap" />
-
-        <Label  
+           VerticalOptions="CenterAndExpand" TextColor="White" x:Name="lblTitle" FontSize="25" LineBreakMode="WordWrap" BackgroundColor="Aqua" />
+            <Label  
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" TextColor="White" x:Name="lblExplanation" FontSize="Body" LineBreakMode="WordWrap" LineHeight="1.8" />
-        
-         <Image  x:Name="imgContent" HeightRequest="100" WidthRequest="100" Margin="40"/>
+            
+            <Button Text="Yeni Bilgi"  Margin="20" WidthRequest="80" HeightRequest="80"  CornerRadius ="40" VerticalOptions="Center" HorizontalOptions ="Center" BackgroundColor="#f75f00"  TextColor="White" x:Name="btnChangeSingleData" />
+        </Grid>
+    </Grid>-->
 
+    <StackLayout Padding="5,10">
+
+        <Frame BorderColor="#ECF0F1" 
+       CornerRadius="5"
+       Padding="150" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Opacity="50" >
+            <StackLayout>
+                <Label   x:Name="lblTitle" 
+           FontSize="Medium"
+           FontAttributes="Bold"  />
+                <BoxView Color="#ECF0F1" 
+             HeightRequest="5"
+             HorizontalOptions="Fill"   />
+                <Label  x:Name="lblExplanation" FontSize="Body" LineBreakMode="WordWrap" LineHeight="1.8" />
+            </StackLayout>
+        </Frame>
+        
+        
+   
+        
         <Button Text="Yeni Bilgi"  Margin="20" WidthRequest="80" HeightRequest="80"  CornerRadius ="40" VerticalOptions="Center" HorizontalOptions ="Center" BackgroundColor="#f75f00"  TextColor="White" x:Name="btnChangeSingleData" />
         
     </StackLayout>

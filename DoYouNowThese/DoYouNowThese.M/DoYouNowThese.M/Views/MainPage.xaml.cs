@@ -42,7 +42,7 @@ namespace DoYouNowThese.M
 
             lblExplanation.Text = data.ResultModel.Explanation;
             lblTitle.Text = data.ResultModel.Title;
-            imgContent.Source = data.ResultModel.ImagePath;
+            contentPage.BackgroundImageSource= data.ResultModel.ImagePath;
         }
 
     }
