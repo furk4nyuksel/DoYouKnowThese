@@ -7,8 +7,16 @@
              x:Class="DoYouNowThese.M.Views.SplashScreen"
              BackgroundColor="#fff">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Padding="10">
-            <Image Source="logo.jpg" x:Name="imgLogo" HeightRequest="200" WidthRequest="200"/>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="40">
+            <Frame CornerRadius="100" 
+           HeightRequest="200"
+           WidthRequest="200"
+           HorizontalOptions="Center"
+           Padding="0"
+           IsClippedToBounds="True">
+                <Image Source="logo.jpg" x:Name="imgLogo" HorizontalOptions="Center"
+           VerticalOptions="Center"  HeightRequest="200" WidthRequest="200" />
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
