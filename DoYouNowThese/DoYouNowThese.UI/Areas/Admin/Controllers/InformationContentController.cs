@@ -68,20 +68,24 @@ namespace DoYouNowThese.UI.Areas.Admin.Controllers
                 };
 
 
-                byte[] data;
-                using (var ms = new MemoryStream())
+                if (informationContentCRUDModel.InformationImage != null)
                 {
-                    informationContentCRUDModel.InformationImage.CopyTo(ms);
-                    apiContentCRUDModel.PostImagePath= Path.GetExtension(informationContentCRUDModel.InformationImage.FileName);
-                    data = ms.ToArray();
+
+
+                    byte[] data;
+                    using (var ms = new MemoryStream())
+                    {
+                        informationContentCRUDModel.InformationImage.CopyTo(ms);
+                        apiContentCRUDModel.PostImagePath = Path.GetExtension(informationContentCRUDModel.InformationImage.FileName);
+                        data = ms.ToArray();
+                    }
+
+                    var fileContent = new ByteArrayContent(data);
+
+                    apiContentCRUDModel.ImageArrayList = fileContent;
+
+                    informationContentProvider.InsertInformationContent(apiContentCRUDModel);
                 }
-
-                var fileContent = new ByteArrayContent(data);
-
-                apiContentCRUDModel.ImageArrayList = fileContent;
-
-                informationContentProvider.InsertInformationContent(apiContentCRUDModel);
-
                 response = new Response()
                 {
                     Message = "success",

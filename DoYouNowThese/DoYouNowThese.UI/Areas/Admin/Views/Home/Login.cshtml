@@ -78,7 +78,7 @@
                         <img class="brand-img" src="~/AdminContent/assets/images/logo-colored.png" alt="...">
                         <h2 class="brand-text font-size-18">Remark</h2>
                     </div>
-                    <form id="loginForm"   action="~/Admin/Home/Login"  autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
+                    <form id="loginForm" asp-area="Admin" asp-action="Login" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
                         <div class="form-group form-material floating" data-plugin="formMaterial">
                             <input type="email" class="form-control" name="UserName" />
                             <label class="floating-label">Email</label>
@@ -176,6 +176,7 @@
 
             var Site = window.Site;
             $(document).ready(function () {
+                Jform('#loginForm');
                 Site.run();
             });
         })(document, window, jQuery);
@@ -188,46 +189,8 @@
         completed = function (xhr) {
             alert(`Hi ${xhr.Message}!`);
         };
-
-        $(function () {
-            $("#loginForm").submit(function (e) {
-                e.preventDefault();
-
-                console.log('Doing ajax submit');
-
-                var formAction = $(this).attr("action");
-                var formData = new FormData($('#loginForm')[0]);
-
-                $.ajax({
-                    type: 'post',
-                    url: formAction,
-                    data: formData,
-                    processData: false,
-                    contentType: false
-                }).done(function (result) {
-                    // do something with the result now
-                    console.log(result);
-                    if (result.message === "success") {
-                        Swal.fire({
-                            title: result.message,
-                            icon: 'success',
-                            timer: 1000
-                        });
-                        setTimeout(function () {
-                            window.location.href = result.redirectUrl;
-                        }, 1000);
-
-                    } else {
-                        Swal.fire({
-                            title: result.message,
-                            icon: 'error',
-                        });
-                    }
-                });
-            });
-        })
     </script>
-
+    <script src="~/js/DoYouNowTheseCustom.js"></script>
 </body>
 
 
