@@ -17,5 +17,10 @@ namespace DoYouNowThese.CommonModel.InformationContentModel
         public string AuthorFullName { get; set; }
 
         public string LikeCount { get; set; }
+
+        public string ColorCode1 { get; set; }
+        public string ColorCode2 { get; set; }
+        public string ColorCode3 { get; set; }
+        public string ColorCode4 { get; set; }
     }
 }

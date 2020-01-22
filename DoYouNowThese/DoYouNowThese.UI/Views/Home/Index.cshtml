@@ -134,6 +134,11 @@
             }).done(function (result) {
                 $('#btnChange').removeAttr("disabled", false);
 
+                $('.img1').css('background-color', result.resultModel.colorCode1);
+                $('.img2').css('background-color', result.resultModel.colorCode2);
+                $('.img3').css('background-color', result.resultModel.colorCode3);
+                $('.img4').css('background-color', result.resultModel.colorCode4);
+
 
                 if (result.resultStatus == true) {
                     console.log(result);

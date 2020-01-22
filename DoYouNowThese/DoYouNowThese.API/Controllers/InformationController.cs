@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -45,6 +46,35 @@ namespace DoYouNowThese.API.Controllers
                 resultModel.ImagePath = UrlHelper.InformationPhotoPath+"/"+informationContext.PostImagePath;
                 resultModel.LikeCount = informationContext.LikeCount.ToString();
                 resultModel.Title = informationContext.Title;
+
+ 
+
+                for(int i = 0; i <= 4; i++)
+                {
+                    Random rnd = new Random();
+                    Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                   
+
+                    if (i == 1)
+                    {
+                        resultModel.ColorCode1 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+                    }
+                    if (i == 2)
+                    {
+                        resultModel.ColorCode2 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+                    }
+
+                    if (i == 3)
+                    {
+                        resultModel.ColorCode3 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+                    }
+
+                    if (i == 4)
+                    {
+                        resultModel.ColorCode4 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+                    }
+
+                }
 
                 response.ResultModel = resultModel;
                 response.ResultStatus = true;
