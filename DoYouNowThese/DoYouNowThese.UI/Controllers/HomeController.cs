@@ -38,6 +38,7 @@ namespace DoYouNowThese.UI.Controllers
             if (String.IsNullOrEmpty(SessionExtension.GetSessionUserTokeyKey(HttpContext.Session)))
             {
                 token = tokenProvider.GetAnonimToken();
+                SessionExtension.Set(HttpContext.Session, "FreeToken", token);
             }
             else
             {

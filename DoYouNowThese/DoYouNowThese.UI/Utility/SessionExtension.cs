@@ -26,15 +26,12 @@ namespace DoYouNowThese.UI.Utility
 
         public static string GetSessionUserTokeyKey(this ISession session)
         {
-            AppUserModel userModel = new AppUserModel();
-            userModel = SessionExtension.Get<AppUserModel>(session, "Login");
-            string result = string.Empty;
-            if (userModel != null)
-            {
-                result = userModel.TokenKey;
-            }
-            return result;
+            string token = string.Empty;
+            token = SessionExtension.Get<string>(session, "FreeToken");
+            return token;
         }
+
+
         public static AppUserModel GetSessionUser(this ISession session)
         {
             AppUserModel userModel = new AppUserModel();
