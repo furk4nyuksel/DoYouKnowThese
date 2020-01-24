@@ -1,154 +1,122 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿
 
-@{
-    Layout = null;
+<div class="row" id="MainFormRow">
+    <div class="col-md-3 offset-md-1">
+        <img class="profile-img rounded-circle img-fluid" id="ImgBox" src="~/logo.jpg" alt="profile-img">
+    </div>
+    <div class="col-md-7 home-header-text">
+        <h1>Bunları Biliyor musun ?</h1>
+
+        <div class="panel panel-default">
+            <div class="panel-heading"> <h4 id="Title">Hoş Geldin</h4> </div>
+            <div class="panel-body"> <p id="Content" style="color:black"> Aşağıdaki değiştir butonuna basarak yeni bilgiler ve hayatına renk katabilirsin.</p></div>
+        </div>
+
+        <a class="button content-link" id="btnChange" href="#">Değiştir</a>
+    </div>
+
+</div>
+@if (HttpContextAccessor.HttpContext.Session.GetString("Login") != null)
+{
+
 }
-<head>
-    <meta charset="UTF-8">
-    <title>Bunları Biliyor musun ?</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/ico" href="favicon.png">
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="~/UIassets//css/nprogress.css" />
-    <link rel="stylesheet" type="text/css" href="~/UIassets//css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/UIassets//css/ionicons.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/UIassets//css/animate.css" />
-    <link rel="stylesheet" type="text/css" href="~/UIassets//css/owl.carousel.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/UIassets//css/owl.theme.default.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/UIassets//css/ihover.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/UIassets//css/magnific-popup.css" />
-    <link rel="stylesheet" type="text/css" href="~/UIassets//css/perfect-scrollbar.css" />
-    <link rel="stylesheet" type="text/css" href="~/UIassets//css/style.css" />
-</head>
-<body>
-    <div class="container header-panel">
-
-
-    </div>
-    <!-- MOBILE NAVIGATION -->
-    <div class="float-btn top">
-        <a class="main-btn">
-            <div class="mobile-icon">
-                <i class="icon ion-md-add"></i>
-            </div>
-        </a>
-        <ul>
-            <li><a href="index.html" class="content-link icon-wrap" data-toggle="popover" data-content="home"><i class="icon ion-md-home"></i></a></li>
-            <li><a href="about.html" class="content-link icon-wrap" data-toggle="popover" data-content="about"><i class="icon ion-md-person"></i></a></li>
-            <li><a href="resume.html" class="content-link icon-wrap" data-toggle="popover" data-content="resume"><i class="icon ion-md-school"></i></a></li>
-            <li><a href="portfolio.html" class="content-link icon-wrap" data-toggle="popover" data-content="portfolio"><i class="icon ion-md-images"></i></a></li>
-            <li><a href="contact.html" class="content-link icon-wrap" data-toggle="popover" data-content="contacts"><i class="icon ion-md-paper-plane"></i></a></li>
-        </ul>
-    </div>
-    <!-- NAVIGATION  -->
-    <nav class="nav-wide">
-        <a href="index.html" class="content-link icon-wrap" data-toggle="popover" data-content="home"><i class="icon ion-md-home"></i></a>
-        <a href="about.html" class="content-link icon-wrap" data-toggle="popover" data-content="about"><i class="icon ion-md-person"></i></a>
-        <a href="resume.html" class="content-link icon-wrap" data-toggle="popover" data-content="resume"><i class="icon ion-md-school"></i></a>
-        <a href="portfolio.html" class="content-link icon-wrap" data-toggle="popover" data-content="portfolio"><i class="icon ion-md-images"></i></a>
-        <a href="contact.html" class="content-link icon-wrap" data-toggle="popover" data-content="contacts"><i class="icon ion-md-paper-plane"></i></a>
-    </nav>
-    <!-- /.nav-wide -->
-    <div class="header">
-        <div id="scene" class="parallax-viewport">
-            <div data-parallaxify-range-x="30" data-parallaxify-range-y="50" class="img-bg img1"></div>
-            <div data-parallaxify-range-x="75" data-parallaxify-range-y="50" class="img-bg img2"></div>
-            <div data-parallaxify-range-x="150" data-parallaxify-range-y="50" class="img-bg img3"></div>
+else
+{
+    <div class="dnone container page-bg" id="loginFormRow">
+        <div class="row">
+            @*<div class="col-md-12">
+                    <div class="description-text">
+                        <p>Nam odio quam, cursus sed scelerisque vel, tincidunt non ligula. Praesent luctus nunc ut magna pharetra, eget lacinia justo tempus. Nunc maximus scelerisque volutpat. Integer auctor velit eget eros pellentesque, nec tristique urna pulvinar. Nulla volutpat elit eu sodales lacinia.Nam odio quam, cursus sed scelerisque vel, tincidunt non ligula. Praesent luctus nunc ut magna pharetra, eget lacinia justo tempus.</p>
+                    </div>
+                </div>*@
         </div>
-    </div>
-    <!-- /.header -->
-    <div id="pjax-container">
-        <div class="header-content p_scroll">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 offset-md-1">
-                        <img class="profile-img rounded-circle img-fluid" id="ImgBox" src="~/UIassets//img/home/profile-img.jpg" alt="profile-img">
-                    </div>
-                    <div class="col-md-7 home-header-text">
-                        <h1>Bunları Biliyor musun ?</h1>
-                        <h4 id="Title">I'm Web Developer & Designer</h4>
-
-                        <p id="Content">Sed lectus est, sollicitudin at consectetur non, fringilla at dolor. In hac habitasse platea dictumst.Proin et euismod ipsum. Cras elementum, augue in euismod convallis, quam mi posuere ligula, vitae semper quam lacus ac ante.</p>
-                        <a class="button content-link" id="btnChange" href="#">Değiştir</a>
-                    </div>
+        <!-- ./row -->
+        <div class="form-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="title-text">Giriş Yap</h4>
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container -->
+            <div class="row">
+                <div class="col-md-8 order-md-1 order-2">
+                    <form id="loginForm" data-toggle="validator" class="shake" asp-action="Login" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
+                        <div class="form-group">
+                            <!-- ENTER MANE -->
+                            <input type="text" class="form-control" name="UserName" id="UserName" placeholder="Kullanıcı Adı" required data-error="Lütfen Kullanıcı Adını Giriniz">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        @*<div class="form-group">
+                                 ENTER EMAIL
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" required data-error="Please enter your email address">
+                                <div class="help-block with-errors"></div>
+                            </div>*@
+                        <div class="form-group">
+                            <!-- ENTER MESSAGE -->
+                            <input type="password" class="form-control" name="password" id="Password" placeholder="Şifre" required data-error="Lütfen Şifreyi giriniz">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <!-- button form submit -->
+                        <div class="submit">
+                            <div class="content-button">
+                                <button id="form-submit" type="submit" class="button-form">Gönder</button>
+                            </div>
+                            <div id="msgSubmit" class="h5 h5 text-danger hidden"></div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- /.row -->
         </div>
-        <!-- /.header-content -->
+        <!-- /.form-content -->
     </div>
-    <!-- /.pjax-container -->
-    <!-- FOOTER -->
-    <!-- <footer> -->
-    <!-- <div class="container-fluid"> -->
-    <!-- <!-- <div class="wrap-footer-content"> --> -->
-    <!-- <!-- <!-- <span>&copy; Sonax Studio 2018 All Rights Reserved.</span> --> --> -->
-    <!-- <!-- <div class="social-link-footer"> --> -->
-    <!-- <!-- <a href="#"><i class="icon ion-logo-twitter"></i></a> --> -->
-    <!-- <!-- <a href="#"><i class="icon ion-logo-facebook"></i></a> --> -->
-    <!-- <!-- <a href="#"><i class="icon ion-logo-dribbble"></i></a> --> -->
-    <!-- <!-- <a href="#"><i class="icon ion-logo-instagram"></i></a> --> -->
-    <!-- <!-- </div> --> -->
-    <!-- <!-- </div> --> -->
-    <!-- </div> -->
-    <!-- </footer> -->
-    <!-- JS -->
-    <script src="~/UIassets/js/jquery-3.2.1.min.js"></script>
-    <script src="~/UIassets/js/imagesloaded.pkgd.min.js"></script>
-    <script src="~/UIassets/js/nprogress.js"></script>
-    <script src="~/UIassets/js/circle-progress.min.js"></script>
-    <script src="~/UIassets/js/perfect-scrollbar.min.js"></script>
-    <script src="~/UIassets/js/bootstrap.bundle.min.js"></script>
-    <script src="~/UIassets/js/jquery.parallaxify.min.js"></script>
-    <script src="~/UIassets/js/owl.carousel.min.js"></script>
-    <script src="~/UIassets/js/jquery.shuffle.min.js"></script>
-    <script src="~/UIassets/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/UIassets/js/validator.min.js"></script>
-    <script src="~/UIassets/js/form-scripts.js"></script>
-    <script src="~/UIassets/js/pjax.min.js"></script>
-    <script src="~/UIassets/js/main.js"></script>
-</body>
-</html>
+}
+<!-- /.container page-bg -->
+
+
+
 
 <script>
 
 
-        $('#btnChange').click(function (e) {
-            e.preventDefault();
-
-       
-
-            $('#btnChange').attr("disabled", true);
-
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetJsonPost", "Home")',
-                //data: formData,
-                processData: false,
-                contentType: false
-            }).done(function (result) {
-                $('#btnChange').removeAttr("disabled", false);
-
-                $('.img1').css('background-color', result.resultModel.colorCode1);
-                $('.img2').css('background-color', result.resultModel.colorCode2);
-                $('.img3').css('background-color', result.resultModel.colorCode3);
-                $('.img4').css('background-color', result.resultModel.colorCode4);
 
 
-                if (result.resultStatus == true) {
-                    console.log(result);
-                    $('#Title').html(result.resultModel.title);
-                    $('#Content').html(result.resultModel.explanation);
-                    $('#ImgBox').attr("src", result.resultModel.imagePath);
-                } else {
-                }
-                $('#btnChange').attr("disabled", true);
-            });
+
+
+    @section JsPackage{
+    $(document).ready(function () {
+
+        function Close() {
+         $('#MainFormRow').hide();
+         $('#loginFormRow').hide();
+        }
+
+        Jform('#loginForm');
+
+
+
+
+        $('.LoginIcon').click(function () {
+             Close();
+            $('#loginFormRow').show();
         });
 
+          $('.HomeIcon').click(function () {
+             Close();
+            $('#MainFormRow').show();
+        });
+
+
+
+
+    });
+
+
+    }
+
+
+
+
+
 </script>
+<!-- /.row -->

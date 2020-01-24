@@ -10,6 +10,8 @@ using DoYouNowThese.CommonModel.AppUserModel;
 using DoYouNowThese.PROVIDER.Providers.InformationContentOperation;
 using DoYouNowThese.UI.Utility;
 using DoYouNowThese.PROVIDER.TokenOperation;
+using DoYouNowThese.UI.Models.Utility;
+using DoYouNowThese.PROVIDER.Providers.AppUserOperation;
 
 namespace DoYouNowThese.UI.Controllers
 {
@@ -59,5 +61,38 @@ namespace DoYouNowThese.UI.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public JsonResult Login(AppUserLoginModel appUserLoginModel)
+        {
+            Response response = new Response();
+
+            tokenProvider = new TokenProvider();
+            try
+            {
+                AppUserProvider appUserProvider = new AppUserProvider();
+
+                AppUserModel appuserModel = appUserProvider.GetLoginUser(appUserLoginModel).ResultModel;
+
+                if (appuserModel != null)
+                {
+                    SessionExtension.Set<AppUserModel>(HttpContext.Session, "Login", appuserModel);
+
+                    response = new Response()
+                    {
+                        Message = "Giriş Yapıldı",
+                        Status = true,
+                        RedirectUrl = Url.Action("Index", "Home")
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                response = new Response()
+                {
+                    Message = "Fail",
+                    Status = false
+                };
+            }
+            return Json(response);
+        }
     }
 }
