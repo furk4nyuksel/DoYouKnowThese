@@ -18,11 +18,51 @@
 </div>
 @if (HttpContextAccessor.HttpContext.Session.GetString("Login") != null)
 {
-
+    <div class="dnone container page-bg" id="ProfileFormRow">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="description-text">
+                    <p>Profilinizi bu kısımdan yönetebilirsiniz. </p>
+                </div>
+            </div>
+        </div>
+        <!-- ./row -->
+        <!-- PORTFOLIO -->
+        <div class="portfolio-section">
+            <!-- menu-portfolio -->
+            <ul id="filter">
+                <li>
+                    <a class="active-filter" href="#" data-group="all">All</a>
+                </li>
+                <li>
+                    <a href="#" data-group="web-design">Web Design</a>
+                </li>
+            </ul>
+            <!-- /#filter -->
+            <!-- Grid portfolio -->
+            <div id="grid" class="row portfolio-gutters no-gutters">
+                <!-- /.item -->
+                <div class="col-sm-6 col-lg-4 item" data-groups='["web-design"]'>
+                    <div class="ih-item square effect11 bottom_to_top">
+                        <div class="form-group">
+                            <!-- ENTER MANE -->
+                            <input type="text" class="form-control" name="UserName" id="UserName" placeholder="Kullanıcı Adı" required data-error="Lütfen Kullanıcı Adını Giriniz">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.item -->
+            </div>
+            <!-- /#grid -->
+            <!-- /.container  -->
+        </div>
+        <!-- /.resume-section -->
+    </div>
+    <!-- /.container page-bg -->
 }
 else
 {
-    <div class="dnone container page-bg" id="loginFormRow">
+    <div class="dnone container page-bg" id="ProfileFormRow">
         <div class="row">
             @*<div class="col-md-12">
                     <div class="description-text">
@@ -88,7 +128,7 @@ else
 
         function Close() {
          $('#MainFormRow').hide();
-         $('#loginFormRow').hide();
+         $('#ProfileFormRow').hide();
         }
 
         Jform('#loginForm');
@@ -98,7 +138,7 @@ else
 
         $('.LoginIcon').click(function () {
              Close();
-            $('#loginFormRow').show();
+            $('#ProfileFormRow').show();
         });
 
           $('.HomeIcon').click(function () {
