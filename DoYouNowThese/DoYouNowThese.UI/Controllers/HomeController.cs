@@ -78,7 +78,7 @@ namespace DoYouNowThese.UI.Controllers
 
                     response = new Response()
                     {
-                        Message = "Giriş Yapıldı",
+                        Message = "success",
                         Status = true,
                         RedirectUrl = Url.Action("Index", "Home")
                     };
