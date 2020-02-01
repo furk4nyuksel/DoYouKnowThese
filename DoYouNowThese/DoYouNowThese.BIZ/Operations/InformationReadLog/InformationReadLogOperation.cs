@@ -15,9 +15,14 @@ namespace DoYouNowThese.BIZ.Operations.InformationReadLog
             context = _context;
         }
 
+        public void InsertInformationContentReadList(DATA.Models.InformationReadLog informationReadLog)
+        {
+            context.InformationReadLog.Add(informationReadLog);
+            context.SaveChanges();
+        }
         public List<int> GetReadedInformationContentByAppUserId(int appUserId)
         {
-            List<int> contentListId = context.InformationContent.Where(s => s.AuthorId == appUserId&&s.IsActive&&!s.IsDeleted).Select(m=>m.InformationContentId).ToList();
+            List<int> contentListId = context.InformationReadLog.Where(s => s.AppUserId == appUserId&&s.IsActive&&!s.IsDeleted).Select(m=>m.InformationContentId).ToList();
             return contentListId;
         }
     }

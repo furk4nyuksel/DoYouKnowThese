@@ -33,51 +33,62 @@ namespace DoYouNowThese.API.Controllers
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
         [Route("~/api/[controller]/GetSingleContent")]
-        [HttpGet]
-        public JsonResult GetSingleContent()
+        [HttpPost]
+        public JsonResult GetSingleContent(InformationContentPostModel informationContentPostModel)
         {
             InfrastructureModel<InformationContentSingleDataModel> response = new InfrastructureModel<InformationContentSingleDataModel>();
             InformationContentSingleDataModel resultModel = new InformationContentSingleDataModel();
             try
             {
-                InformationContent informationContext = informationContentOperation.GetSingleInformationContent(0);
-                resultModel.AuthorFullName = informationContext.Author.Name + " " + informationContext.Author.Surname;
-                resultModel.Explanation = informationContext.Explanation;
-                resultModel.ImagePath = UrlHelper.InformationPhotoPath+"/"+informationContext.PostImagePath;
-                resultModel.LikeCount = informationContext.LikeCount.ToString();
-                resultModel.Title = informationContext.Title;
-
- 
-
-                for(int i = 0; i <= 4; i++)
+                InformationContent informationContext = informationContentOperation.GetSingleInformationContent(informationContentPostModel.AppUserId);
+                if (informationContext != null)
                 {
-                    Random rnd = new Random();
-                    Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
-                   
+                    resultModel.AuthorFullName = informationContext.Author!=null?informationContext.Author.Name + " " + informationContext.Author.Surname:"Eski Sevgilim :)";
+                    resultModel.Explanation = informationContext.Explanation;
+                    resultModel.ImagePath = UrlHelper.InformationPhotoPath + "/" + informationContext.PostImagePath;
+                    resultModel.LikeCount = informationContext.LikeCount.ToString();
+                    resultModel.Title = informationContext.Title;
 
-                    if (i == 1)
+                    for (int i = 0; i <= 4; i++)
                     {
-                        resultModel.ColorCode1 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
-                    }
-                    if (i == 2)
-                    {
-                        resultModel.ColorCode2 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
-                    }
+                        Random rnd = new Random();
+                        Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
 
-                    if (i == 3)
-                    {
-                        resultModel.ColorCode3 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
-                    }
 
-                    if (i == 4)
-                    {
-                        resultModel.ColorCode4 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
-                    }
+                        if (i == 1)
+                        {
+                            resultModel.ColorCode1 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+                        }
+                        if (i == 2)
+                        {
+                            resultModel.ColorCode2 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+                        }
 
+                        if (i == 3)
+                        {
+                            resultModel.ColorCode3 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+                        }
+
+                        if (i == 4)
+                        {
+                            resultModel.ColorCode4 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+                        }
+       
+                        response.ResultModel = resultModel;
+                        response.ResultModel.IsAllView = false;
+                        response.ResultStatus = true;
+                    }
                 }
-
-                response.ResultModel = resultModel;
-                response.ResultStatus = true;
+                else
+                {
+                    response.ResultModel = resultModel;
+                    response.ResultModel.IsAllView = true;
+                    resultModel.ImagePath = UrlHelper.InformationPhotoPath + "/" + "33350e5ae-56d8-4707-ac40-8b4c60ddb115.jpg";
+                    resultModel.Title = "Tüm İçerikleri Gördünüz";
+                    resultModel.Explanation = "Bunları biliyor musunuz ? takipçileri içerik bittiğinde görüyorsa bir yöneticiye mail gitmiştir ve sizin için yeni içerik oluşturma talebi oluşur";
+                    response.ResultStatus = true;
+                }
+              
             }
             catch (Exception ex)
             {
@@ -86,6 +97,60 @@ namespace DoYouNowThese.API.Controllers
             }
             return new JsonResult(response);
         }
+
+        //public JsonResult GetSingleContent()
+        //{
+        //    InfrastructureModel<InformationContentSingleDataModel> response = new InfrastructureModel<InformationContentSingleDataModel>();
+        //    InformationContentSingleDataModel resultModel = new InformationContentSingleDataModel();
+        //    try
+        //    {
+        //        InformationContent informationContext = informationContentOperation.GetSingleInformationContent(0);
+        //        resultModel.AuthorFullName = informationContext.Author.Name + " " + informationContext.Author.Surname;
+        //        resultModel.Explanation = informationContext.Explanation;
+        //        resultModel.ImagePath = UrlHelper.InformationPhotoPath + "/" + informationContext.PostImagePath;
+        //        resultModel.LikeCount = informationContext.LikeCount.ToString();
+        //        resultModel.Title = informationContext.Title;
+
+
+
+        //        for (int i = 0; i <= 4; i++)
+        //        {
+        //            Random rnd = new Random();
+        //            Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+
+
+        //            if (i == 1)
+        //            {
+        //                resultModel.ColorCode1 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+        //            }
+        //            if (i == 2)
+        //            {
+        //                resultModel.ColorCode2 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+        //            }
+
+        //            if (i == 3)
+        //            {
+        //                resultModel.ColorCode3 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+        //            }
+
+        //            if (i == 4)
+        //            {
+        //                resultModel.ColorCode4 = "#" + randomColor.R.ToString("X2") + randomColor.G.ToString("X2") + randomColor.B.ToString("X2");
+        //            }
+
+        //        }
+
+        //        response.ResultModel = resultModel;
+        //        response.ResultStatus = true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response.ResultStatus = false;
+        //        throw ex;
+        //    }
+        //    return new JsonResult(response);
+        //}
+
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [Route("~/api/[controller]/GetCategorySingleContent")]

@@ -12,6 +12,8 @@ using DoYouNowThese.UI.Utility;
 using DoYouNowThese.PROVIDER.TokenOperation;
 using DoYouNowThese.UI.Models.Utility;
 using DoYouNowThese.PROVIDER.Providers.AppUserOperation;
+using DoYouNowThese.CommonModel.InformationContentModel;
+using DoYouNowThese.CommonModel.Infrastructure;
 
 namespace DoYouNowThese.UI.Controllers
 {
@@ -37,17 +39,27 @@ namespace DoYouNowThese.UI.Controllers
             informationContentProvider = new InformationContentProvider();
             tokenProvider = new TokenProvider();
             string token = string.Empty;
-            if (String.IsNullOrEmpty(SessionExtension.GetSessionUserTokeyKey(HttpContext.Session)))
+            InfrastructureModel<InformationContentSingleDataModel> infrastructureModel = new InfrastructureModel<InformationContentSingleDataModel>();
+
+            if (SessionExtension.GetSessionUser(HttpContext.Session)==null)
             {
                 token = tokenProvider.GetAnonimToken();
                 SessionExtension.Set(HttpContext.Session, "FreeToken", token);
+                infrastructureModel = informationContentProvider.GetInformationContentSingleData(new InformationContentPostModel() { TokenKey = token });
+
             }
             else
             {
-                token = SessionExtension.GetSessionUserTokeyKey(HttpContext.Session);
+                AppUserModel appUserModel = SessionExtension.GetSessionUser(HttpContext.Session);
+                if (appUserModel != null)
+                {
+                    token = SessionExtension.GetSessionUserTokeyKey(HttpContext.Session);
+
+                    infrastructureModel = informationContentProvider.GetInformationContentSingleData(new InformationContentPostModel() { AppUserId = appUserModel.AppUser.AppUserId, TokenKey = token });
+                }
+
             }
-            var data = informationContentProvider.GetInformationContentSingleData(token);
-            return Json(data);
+            return Json(infrastructureModel);
         }
 
         public IActionResult Privacy()

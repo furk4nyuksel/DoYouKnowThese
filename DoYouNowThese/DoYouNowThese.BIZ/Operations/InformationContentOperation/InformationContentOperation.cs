@@ -28,9 +28,22 @@ namespace DoYouNowThese.BIZ.Operations.InformationContentOperation
         {
             List<int> readList = informationReadLogOperation.GetReadedInformationContentByAppUserId(appUserId);
             InformationContent informationContent = new InformationContent();
-            if (readList != null)
+            if (readList != null&&readList.Count>0)
             {
                  informationContent = context.InformationContent.Include(s=>s.Author).Include(a=>a.Category).Where(s => s.IsActive && !s.IsDeleted && !readList.Contains(s.InformationContentId)).OrderBy(s => Guid.NewGuid()).Take(1).SingleOrDefault();
+                if (informationContent != null)
+                {
+                    DATA.Models.InformationReadLog informationReadLog = new DATA.Models.InformationReadLog()
+                    {
+                        AppUserId = appUserId,
+                        CreateDate = DateTime.Now,
+                        InformationContentId = informationContent.InformationContentId,
+                        IsActive = true,
+                        IsDeleted = false,
+                    };
+
+                    informationReadLogOperation.InsertInformationContentReadList(informationReadLog);
+                }
             }
             else
             {

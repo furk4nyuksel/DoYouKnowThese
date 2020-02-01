@@ -48,7 +48,7 @@
     <!-- NAVIGATION  -->
     <nav class="nav-wide">
         <a href="#" class="content-link icon-wrap HomeIcon" id="HomeIcon" data-toggle="popover" data-content="home"><i class="icon ion-md-home"></i></a>
-        <a href="#" class="content-link icon-wrap LoginIcon"  id="LoginIcon" data-toggle="popover" data-content="about"><i class="icon ion-md-person"></i></a>
+        <a href="#" class="content-link icon-wrap LoginIcon" id="LoginIcon" data-toggle="popover" data-content="about"><i class="icon ion-md-person"></i></a>
         <a href="resume.html" class="content-link icon-wrap" data-toggle="popover" data-content="resume"><i class="icon ion-md-school"></i></a>
         <a href="portfolio.html" class="content-link icon-wrap" data-toggle="popover" data-content="portfolio"><i class="icon ion-md-images"></i></a>
         <a href="contact.html" class="content-link icon-wrap" data-toggle="popover" data-content="contacts"><i class="icon ion-md-paper-plane"></i></a>
@@ -123,7 +123,6 @@
                 processData: false,
                 contentType: false
             }).done(function (result) {
-                $('#btnChange').removeAttr("disabled", false);
 
                 $('.header').css('background-color', result.resultModel.colorCode1);
                 //$('.img2').css('background-color', result.resultModel.colorCode2);
@@ -131,14 +130,19 @@
                 //$('.img4').css('background-color', result.resultModel.colorCode4);
 
 
-                if (result.resultStatus == true) {
+              if (result.resultStatus == true) {
                     console.log(result);
                     $('#Title').html(result.resultModel.title);
                     $('#Content').html(result.resultModel.explanation);
-                    $('#ImgBox').attr("src", result.resultModel.imagePath);
-                } else {
+                  $('#ImgBox').attr("src", result.resultModel.imagePath);
+                  if (result.resultModel.isAllView != true) {
+                     $('#btnChange').attr("disabled", false);
+                  }
+
+              }
+              else {
                 }
-                $('#btnChange').attr("disabled", true);
+       
             });
         });
 
@@ -158,7 +162,7 @@ function setRandomColor() {
     }
 
 
-        
+
     @RenderSection("JsPackage", required: false)
     </script>
 

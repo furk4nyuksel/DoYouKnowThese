@@ -18,6 +18,8 @@ namespace DoYouNowThese.CommonModel.InformationContentModel
 
         public string LikeCount { get; set; }
 
+        public bool IsAllView { get; set; }
+
         public string ColorCode1 { get; set; }
         public string ColorCode2 { get; set; }
         public string ColorCode3 { get; set; }

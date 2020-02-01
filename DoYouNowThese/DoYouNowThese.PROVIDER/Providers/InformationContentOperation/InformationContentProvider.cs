@@ -12,23 +12,28 @@ namespace DoYouNowThese.PROVIDER.Providers.InformationContentOperation
 {
     public class InformationContentProvider
     {
-        public InfrastructureModel<InformationContentSingleDataModel> GetInformationContentSingleData(string tokenKey)
+        public InfrastructureModel<InformationContentSingleDataModel> GetInformationContentSingleData(InformationContentPostModel informationContentPostModel)
         {
             InfrastructureModel<InformationContentSingleDataModel> resultModel = new InfrastructureModel<InformationContentSingleDataModel>();
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenKey);
-                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json charset=utf-8");
-                client.DefaultRequestHeaders.Accept.Clear();
 
-                HttpResponseMessage httpResponceMessage = client.GetAsync(ConnectionHelper.GetConnectionUrl() + "Information/GetSingleContent/").Result;
-                httpResponceMessage.EnsureSuccessStatusCode();
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", informationContentPostModel.TokenKey);
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json charset=utf-8");
+                    client.DefaultRequestHeaders.Accept.Clear();
 
-                string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;
+                    var serializeJsonObject = JsonConvert.SerializeObject(informationContentPostModel);
+                    StringContent content = new StringContent(serializeJsonObject, Encoding.UTF8, "application/json");
 
-                resultModel = JsonConvert.DeserializeObject<InfrastructureModel<InformationContentSingleDataModel>>(stringResponce);
-                return resultModel;
-            }
+                    HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "Information/GetSingleContent/", content).Result;
+                    httpResponceMessage.EnsureSuccessStatusCode();
+
+                    string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;
+
+                    resultModel = JsonConvert.DeserializeObject<InfrastructureModel<InformationContentSingleDataModel>>(stringResponce);
+                }
+            return resultModel;
+            
         }
         public InfrastructureModel<InformationContentSingleDataModel> GetInformationCategoryContentSingleData(InformationContentPostModel postModel)
         {
