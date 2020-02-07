@@ -20,5 +20,16 @@ namespace DoYouNowThese.BIZ.Operations.AppUserOperation
         {
           return context.AppUser.Where(s => s.Email.Equals(userName) && s.Password.Equals(password)&&s.IsActive&&!s.IsDeleted).SingleOrDefault();
         }
+
+        public AppUser GetById(int id=0)
+        {
+            return context.AppUser.Where(s => s.AppUserId==id && s.IsActive && !s.IsDeleted).SingleOrDefault();
+        }
+
+        public void Update(AppUser entity)
+        {
+            context.AppUser.Add(entity);
+            context.SaveChanges();
+        }
     }
 }

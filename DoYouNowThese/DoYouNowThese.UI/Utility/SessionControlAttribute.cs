@@ -31,7 +31,7 @@ namespace DoYouNowThese.UI.Utility
             {
                 context.Result= new ViewResult
                 {
-                    ViewName = "SessionError",
+                    ViewName = "Index",
                 };
             }
         }

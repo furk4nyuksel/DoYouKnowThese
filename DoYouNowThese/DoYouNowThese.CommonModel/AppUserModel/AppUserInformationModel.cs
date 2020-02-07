@@ -1,17 +1,18 @@
-﻿using DoYouNowThese.CommonModel.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DoYouNowThese.CommonModel.AppUserModel
 {
-    public class AppUserLoginModel:GeneralModel
+  public  class AppUserInformationModel
     {
         public int AppUserId { get; set; }
 
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
-        public string Password { get; set; }
+        public string Surname { get; set; }
+
+        public string Username { get; set; }
 
         public string Email { get; set; }
     }

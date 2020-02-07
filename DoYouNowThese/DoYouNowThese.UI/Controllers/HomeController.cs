@@ -23,6 +23,7 @@ namespace DoYouNowThese.UI.Controllers
 
         InformationContentProvider informationContentProvider;
         TokenProvider tokenProvider;
+        AppUserProvider appUserProvider;
         public HomeController(ILogger<HomeController> logger)
         {
             informationContentProvider = new InformationContentProvider();
@@ -80,7 +81,7 @@ namespace DoYouNowThese.UI.Controllers
             tokenProvider = new TokenProvider();
             try
             {
-                AppUserProvider appUserProvider = new AppUserProvider();
+                appUserProvider = new AppUserProvider();
 
                 AppUserModel appuserModel = appUserProvider.GetLoginUser(appUserLoginModel).ResultModel;
 
@@ -104,6 +105,28 @@ namespace DoYouNowThese.UI.Controllers
                     Status = false
                 };
             }
+            return Json(response);
+        }
+
+        public JsonResult GetAppUserInformation(AppUserLoginModel appUserLoginModel)
+        {
+            Response<AppUserInformationModel> response = new Response<AppUserInformationModel>();
+            appUserProvider = new AppUserProvider();
+            AppUserModel appUserModel = SessionExtension.GetSessionUser(HttpContext.Session);
+
+            if (appUserModel != null)
+            {
+                AppUserModel appUserTokenModel = SessionExtension.GetSessionUser(HttpContext.Session);
+                InfrastructureModel<AppUserInformationModel> appUserInformationModel = appUserProvider.GetById(new AppUserLoginModel() { AppUserId= appUserModel.AppUser.AppUserId,TokenKey= appUserModel.TokenKey });
+                response = new Response<AppUserInformationModel>()
+                {
+                    Data = appUserInformationModel.ResultModel,
+                    Message = "succes",
+                    Status = true
+                };
+            }
+
+       
             return Json(response);
         }
     }
