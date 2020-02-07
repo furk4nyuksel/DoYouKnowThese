@@ -26,7 +26,7 @@ namespace DoYouNowThese.PROVIDER.Providers.AppUserOperation
 
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loginModel.TokenKey);
                 StringContent contentPost = new StringContent(serializePostModel, Encoding.UTF8,"application/json");
-                HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "AppUser/GetUserToken/", contentPost).Result;
+                HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "Token/GetUserToken/", contentPost).Result;
                 httpResponceMessage.EnsureSuccessStatusCode();
 
                 string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;

@@ -1,34 +1,34 @@
 ﻿
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .topnav {
+        overflow: hidden;
+        background-color: #333;
+    }
+
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
         }
 
-        .topnav {
-            overflow: hidden;
-            background-color: #333;
-        }
-
-            .topnav a {
-                float: left;
-                color: #f2f2f2;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-size: 17px;
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
             }
 
-                .topnav a:hover {
-                    background-color: #ddd;
-                    color: black;
-                }
-
-                .topnav a.active {
-                    background-color: #4CAF50;
-                    color: white;
-                }
-    </style>
+            .topnav a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+</style>
 
 <div class="row" id="MainFormRow">
     <div class="col-md-3 offset-md-1">
@@ -41,9 +41,9 @@
             <div class="panel-heading"> <h4 id="Title">Hoş Geldin</h4> </div>
             <div class="panel-body"> <p id="Content" style="color:black"> Aşağıdaki değiştir butonuna basarak yeni bilgiler ve hayatına renk katabilirsin.</p></div>
         </div>
- 
 
-        <input type="button"  class="button content-link" id="btnChange" value="Değiştir" />
+
+        <input type="button" class="button content-link" id="btnChange" value="Değiştir" />
     </div>
 
 </div>
@@ -61,12 +61,53 @@
         <!-- PORTFOLIO -->
         <div class="portfolio-section">
             <div class="topnav">
-                <a class="active" href="#home">Profilim</a>
+                <a class="active" href="#AppUserProfile">Profilim</a>
                 <a href="#news">News</a>
                 <a href="#contact">Contact</a>
                 <a href="#about">About</a>
             </div>
         </div>
+
+        <div class="dnone row" id="AppUserProfile">
+            <div class="col-md-8 order-md-1 order-2">
+                <form id="loginForm" data-toggle="validator" class="shake" asp-action="Login" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
+                    <div class="form-group">
+                        Kullanıcı Adı
+                        <!-- ENTER MANE -->
+                        <input type="text" class="form-control" name="UserName" id="UserName" placeholder="Kullanıcı Adı" required data-error="Lütfen Kullanıcı Adını Giriniz">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        Mail Adresi
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" required data-error="Mail Adresinizi Giriniz">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        Ad
+                        <!-- ENTER MANE -->
+                        <input type="text" class="form-control" name="Name" id="Name" placeholder="Adı" required data-error="Adınızı Giriniz">
+                        <div class="help-block with-errors"></div>
+                    </div>
+
+                    <div class="form-group">
+                        Soyad
+                        <!-- ENTER MANE -->
+                        <input type="text" class="form-control" name="Surname" id="Surname" placeholder="Soyadı" required data-error="Soyadınızı Giriniz">
+                        <div class="help-block with-errors"></div>
+                    </div>
+
+
+                    <!-- button form submit -->
+                    <div class="submit">
+                        <div class="content-button">
+                            <button id="form-submit" type="submit" class="button-form">Gönder</button>
+                        </div>
+                        <div id="msgSubmit" class="h5 h5 text-danger hidden"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <!-- /.resume-section -->
     </div>
     <!-- /.container page-bg -->
@@ -163,7 +204,39 @@ else
     });
 
 
+    $('a[href="#AppUserProfile"]').click(function () {
+           $.ajax({
+            type: 'post',
+            url: '@Url.Action("GetAppUserInformation","Home")',
+            processData: false,
+            contentType: false
+        }).done(function (result) {
+            if (result.message == "succes") {
+                Swal.fire({
+                    title: result.message,
+                    icon: 'success',
+                    timer: 1000
+                });
+                  $('#AppUserProfile').show();
+                    $("#UserName").val(result.data.username);
+                    $("#email").val(result.data.email);
+                    $("#Name").val(result.data.name);
+                    $("#Surname").val(result.data.surname);
+
+            }
+            else {
+                Swal.fire({
+                    title: result.message,
+                    icon: 'error',
+                });
+            }
+        });
+        });
+
+
     }
+
+
 
 
 
