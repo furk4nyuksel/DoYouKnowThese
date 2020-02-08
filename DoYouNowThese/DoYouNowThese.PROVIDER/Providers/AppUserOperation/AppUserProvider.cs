@@ -68,5 +68,61 @@ namespace DoYouNowThese.PROVIDER.Providers.AppUserOperation
                 return infrastructureModel;
             }
         }
+
+        public InfrastructureModel<AppUserInformationModel> Update(AppUserInformationModel appUserInformationModel)
+        {
+            InfrastructureModel<AppUserInformationModel> infrastructureModel = new InfrastructureModel<AppUserInformationModel>();
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", appUserInformationModel.TokenKey);
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json charset=utf-8");
+                client.DefaultRequestHeaders.Accept.Clear();
+
+                var serializePostModel = JsonConvert.SerializeObject(appUserInformationModel);
+
+                StringContent contentPost = new StringContent(serializePostModel, Encoding.UTF8, "application/json");
+                HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "AppUser/Update/", contentPost).Result;
+
+                httpResponceMessage.EnsureSuccessStatusCode();
+
+                string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;
+
+                infrastructureModel = JsonConvert.DeserializeObject<InfrastructureModel<AppUserInformationModel>>(stringResponce);
+
+                if (infrastructureModel.ResultModel != null)
+                {
+                    infrastructureModel.ResultStatus = true;
+                }
+                return infrastructureModel;
+            }
+        }
+
+        public InfrastructureModel<AppUserLoginModel> ChangePassword(AppUserLoginModel appUserLoginModel)
+        {
+            InfrastructureModel<AppUserLoginModel> infrastructureModel = new InfrastructureModel<AppUserLoginModel>();
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", appUserLoginModel.TokenKey);
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json charset=utf-8");
+                client.DefaultRequestHeaders.Accept.Clear();
+
+                var serializePostModel = JsonConvert.SerializeObject(appUserLoginModel);
+
+                StringContent contentPost = new StringContent(serializePostModel, Encoding.UTF8, "application/json");
+                HttpResponseMessage httpResponceMessage = client.PostAsync(ConnectionHelper.GetConnectionUrl() + "AppUser/ChangePassword/", contentPost).Result;
+
+                httpResponceMessage.EnsureSuccessStatusCode();
+
+                string stringResponce = httpResponceMessage.Content.ReadAsStringAsync().Result;
+
+                infrastructureModel = JsonConvert.DeserializeObject<InfrastructureModel<AppUserLoginModel>>(stringResponce);
+
+                if (infrastructureModel.ResultModel != null)
+                {
+                    infrastructureModel.ResultStatus = true;
+                }
+                return infrastructureModel;
+            }
+        }
     }
 }

@@ -14,6 +14,8 @@ namespace DoYouNowThese.CommonModel.Infrastructure
     {
         public bool ResultStatus { get; set; }
 
+        public string Message { get; set; }
+
         public T ResultModel { get; set; }
 
     }

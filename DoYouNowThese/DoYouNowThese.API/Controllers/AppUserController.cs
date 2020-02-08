@@ -59,10 +59,10 @@ namespace DoYouNowThese.API.Controllers
 
             if (appUser != null)
             {
-                appUser.Email = appUserInformationModel.Email;
+                //appUser.Email = appUserInformationModel.Email;
                 appUser.Name = appUserInformationModel.Name;
                 appUser.Surname = appUserInformationModel.Surname;
-                appUser.Username = appUserInformationModel.Username;
+               // appUser.Username = appUserInformationModel.Username;
 
                 appUserOperation.Update(appUser);
 
@@ -71,6 +71,44 @@ namespace DoYouNowThese.API.Controllers
             }
 
             return Json(appUserInformationModel);
+        }
+
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Route("~/api/[controller]/UpdatePassword")]
+        public IActionResult UpdatePassword([FromBody] AppUserLoginModel appUserLoginModel)
+        {
+            InfrastructureModel<bool> infrastructureModel = new InfrastructureModel<bool>();
+
+            var appUser = appUserOperation.GetById(appUserLoginModel.AppUserId);
+
+            if (appUser != null)
+            {
+                if (appUser.Password == appUserLoginModel.NowPassword)
+                {
+                    if (appUserLoginModel.Password == appUserLoginModel.RePassword)
+                    {
+                        appUser.Password = appUserLoginModel.Password;
+
+                        infrastructureModel.Message = "Şifre Değiştirildi";
+
+                        appUserOperation.Update(appUser);
+                    }
+                    else
+                    {
+                        infrastructureModel.Message = "Şifreler Eşleşmiyor Veya Eski Şifreniz Yanlış";
+                    }
+                }
+                else
+                {
+                    infrastructureModel.Message = "Şuanki Şifreniz Yanlış";
+                }
+
+                infrastructureModel.ResultModel = true;
+                infrastructureModel.ResultStatus = true;
+            }
+
+            return Json(infrastructureModel);
         }
 
 

@@ -54,7 +54,7 @@ namespace DoYouNowThese.UI.Controllers
                 AppUserModel appUserModel = SessionExtension.GetSessionUser(HttpContext.Session);
                 if (appUserModel != null)
                 {
-                    token = SessionExtension.GetSessionUserTokeyKey(HttpContext.Session);
+                    token = appUserModel.TokenKey;
 
                     infrastructureModel = informationContentProvider.GetInformationContentSingleData(new InformationContentPostModel() { AppUserId = appUserModel.AppUser.AppUserId, TokenKey = token });
                 }
@@ -125,8 +125,32 @@ namespace DoYouNowThese.UI.Controllers
                     Status = true
                 };
             }
+            return Json(response);
+        }
 
-       
+        [HttpPost]
+        public JsonResult ChanePassword(AppUserLoginModel appUserLoginModel)
+        {
+            Response<AppUserLoginModel> response = new Response<AppUserLoginModel>();
+            appUserProvider = new AppUserProvider();
+
+            AppUserModel appUserModel = SessionExtension.GetSessionUser(HttpContext.Session);
+
+            if (appUserModel != null)
+            {
+                AppUserModel appUserTokenModel = SessionExtension.GetSessionUser(HttpContext.Session);
+
+                appUserLoginModel.TokenKey = appUserModel.TokenKey;
+
+                InfrastructureModel<AppUserLoginModel> infrastructureModel= appUserProvider.ChangePassword(appUserLoginModel);
+
+                response = new Response<AppUserLoginModel>()
+                {
+                    Data = infrastructureModel.ResultModel,
+                    Message = "succes",
+                    Status = true
+                };
+            }
             return Json(response);
         }
     }
