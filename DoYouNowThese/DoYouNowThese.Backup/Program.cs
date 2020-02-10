@@ -20,28 +20,19 @@ namespace DoYouNowThese.Backup
         static void Main(string[] args)
         {
 
-            //CreateFolder(DateTime.Now.ToShortDateString().ToString(), service);
-
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            string somepath = "C:\\inetpub\\wwwroot\\";
-            string zippath = "C:\\inetpub\\backup\\"+DateTime.Now.ToShortDateString()+".rar";
-            string[] filenames =
-            System.IO.Directory.GetDirectories(somepath);
- 
+            string somepath = "C:\\inetpub\\wwwroot";
+            string zippath = "C:\\Users\\Administrator\\Desktop\\Backup\\" + DateTime.Now.Day+ DateTime.Now.Month + DateTime.Now.Year+ "backup"+".rar";
+             
             using (ZipFile zip = new ZipFile())
             {
-                foreach (String filename in filenames)
-                {
-
-                    ZipEntry e = zip.AddFile(filename, "");
-
-                }
+                zip.AddDirectory(somepath);
                 zip.Save(zippath);
             }
 
+
             //UserCredential credential;
 
-            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             //credential = GetCredentials();
 
 
