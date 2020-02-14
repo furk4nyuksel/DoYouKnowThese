@@ -102,12 +102,12 @@ namespace DoYouNowThese.UI.Controllers
                 response = new Response()
                 {
                     Message = "Fail",
-                    Status = false
+                    Status = false,
                 };
             }
             return Json(response);
         }
-
+        [HttpPost]
         public JsonResult GetAppUserInformation(AppUserLoginModel appUserLoginModel)
         {
             Response<AppUserInformationModel> response = new Response<AppUserInformationModel>();
@@ -129,9 +129,9 @@ namespace DoYouNowThese.UI.Controllers
         }
 
         [HttpPost]
-        public JsonResult ChanePassword(AppUserLoginModel appUserLoginModel)
+        public JsonResult ChangePassword(AppUserLoginModel appUserLoginModel)
         {
-            Response<AppUserLoginModel> response = new Response<AppUserLoginModel>();
+            Response<bool> response = new Response<bool>();
             appUserProvider = new AppUserProvider();
 
             AppUserModel appUserModel = SessionExtension.GetSessionUser(HttpContext.Session);
@@ -141,14 +141,67 @@ namespace DoYouNowThese.UI.Controllers
                 AppUserModel appUserTokenModel = SessionExtension.GetSessionUser(HttpContext.Session);
 
                 appUserLoginModel.TokenKey = appUserModel.TokenKey;
+                appUserLoginModel.AppUserId = appUserModel.AppUser.AppUserId;
 
-                InfrastructureModel<AppUserLoginModel> infrastructureModel= appUserProvider.ChangePassword(appUserLoginModel);
+                InfrastructureModel<bool> infrastructureModel= appUserProvider.ChangePassword(appUserLoginModel);
 
-                response = new Response<AppUserLoginModel>()
+                response = new Response<bool>()
                 {
                     Data = infrastructureModel.ResultModel,
-                    Message = "succes",
-                    Status = true
+                    Message = infrastructureModel.Message,
+                    Status = true,
+                    Refresh=true
+                };
+            }
+            return Json(response);
+        }
+
+
+        [HttpPost]
+        public JsonResult UpdateAppUserInformation(AppUserInformationModel appUserInformationModel)
+        {
+            Response<bool> response = new Response<bool>();
+            appUserProvider = new AppUserProvider();
+
+            AppUserModel appUserModel = SessionExtension.GetSessionUser(HttpContext.Session);
+
+            if (appUserModel != null)
+            {
+                AppUserModel appUserTokenModel = SessionExtension.GetSessionUser(HttpContext.Session);
+
+                appUserInformationModel.TokenKey = appUserModel.TokenKey;
+
+                appUserInformationModel.AppUserId = appUserModel.AppUser.AppUserId;
+
+                InfrastructureModel<bool> infrastructureModel = appUserProvider.Update(appUserInformationModel);
+
+                response = new Response<bool>
+                {
+                    Data = infrastructureModel.ResultStatus,
+                    Message = "success",
+                    Status = infrastructureModel.ResultStatus,
+                };
+            }
+            return Json(response);
+        }
+
+        public JsonResult ResetAllInformation()
+        {
+            Response<bool> response = new Response<bool>();
+            appUserProvider = new AppUserProvider();
+            AppUserModel appUserModel = SessionExtension.GetSessionUser(HttpContext.Session);
+
+            if (appUserModel != null)
+            {
+                AppUserModel appUserTokenModel = SessionExtension.GetSessionUser(HttpContext.Session);
+
+                InfrastructureModel<bool> infrastructureModel = appUserProvider.ResetAllInformationAppUser(appUserTokenModel);
+
+                response = new Response<bool>
+                {
+                    Data = infrastructureModel.ResultStatus,
+                    Message = infrastructureModel.Message,
+                    Status = infrastructureModel.ResultStatus,
                 };
             }
             return Json(response);

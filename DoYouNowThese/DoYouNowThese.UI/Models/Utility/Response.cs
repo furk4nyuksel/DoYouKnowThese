@@ -18,6 +18,8 @@ namespace DoYouNowThese.UI.Models.Utility
     {
         public bool Status { get; set; }
 
+        public bool Refresh { get; set; }
+
         public string Message { get; set; }
 
         public string RedirectUrl { get; set; }

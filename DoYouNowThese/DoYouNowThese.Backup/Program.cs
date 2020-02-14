@@ -23,7 +23,7 @@ namespace DoYouNowThese.Backup
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             string somepath = "C:\\inetpub\\wwwroot";
             string zippath = "C:\\Users\\Administrator\\Desktop\\Backup\\" + DateTime.Now.Day+ DateTime.Now.Month + DateTime.Now.Year+ "backup"+".rar";
-             
+
             using (ZipFile zip = new ZipFile())
             {
                 zip.AddDirectory(somepath);
@@ -31,23 +31,34 @@ namespace DoYouNowThese.Backup
             }
 
 
-            //UserCredential credential;
+            try
+            {
+                UserCredential credential;
 
-            //credential = GetCredentials();
-
-
-            //// Create Drive API service.
-            //var service = new DriveService(new BaseClientService.Initializer()
-            //{
-            //    HttpClientInitializer = credential,
-            //    ApplicationName = ApplicationName,
-            //});
-
-            //UploadBasicImage(zippath, service);
+                credential = GetCredentials();
 
 
-            Console.WriteLine("Done");
-            Console.Read();
+                // Create Drive API service.
+                var service = new DriveService(new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = ApplicationName,
+                });
+
+                UploadBasicImage(zippath, service);
+
+
+                Console.WriteLine("Google drive'a bağlandım");
+                Console.ReadLine();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadLine();
+                throw ex;
+  
+            }
+            
 
         }
 

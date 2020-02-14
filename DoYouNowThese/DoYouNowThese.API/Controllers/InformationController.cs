@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DoYouNowThese.BIZ.Operations.InformationContentOperation;
+using DoYouNowThese.BIZ.Operations.InformationReadLog;
 using DoYouNowThese.CommonModel.InformationContentModel;
 using DoYouNowThese.CommonModel.Infrastructure;
 using DoYouNowThese.CORE;

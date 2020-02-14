@@ -63,14 +63,14 @@
         <div class="topnav">
             <a href="#AppUserProfile">Profilim</a>
             <a href="#ChangePassword">Şifremi Değiştir</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
+            <a href="#SystemSettings">Sistem Ayarları</a>
+            <a href="#about">Hakkımızda</a>
         </div>
     </div>
 
     <div class="dnone row" id="AppUserProfile">
         <div class="col-md-8 order-md-1 order-2">
-            <form id="loginForm" data-toggle="validator" class="shake" asp-action="Login" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
+            <form id="UpdateAppUserInformationForm" data-toggle="validator" class="shake" asp-action="UpdateAppUserInformation" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
                 <div class="form-group">
                     Kullanıcı Adı
                     <!-- ENTER MANE -->
@@ -100,7 +100,7 @@
                 <!-- button form submit -->
                 <div class="submit">
                     <div class="content-button">
-                        <button id="form-submit" type="submit" class="button-form">Gönder</button>
+                        <button id="form-submit-UpdateAppUserInformationForm" type="submit" class="button-form">Gönder</button>
                     </div>
                     <div id="msgSubmit" class="h5 h5 text-danger hidden"></div>
                 </div>
@@ -108,33 +108,35 @@
         </div>
     </div>
 
-    <div class="dnone row" id="AppUserProfile">
+    <div class="dnone row" id="ChangePassword">
         <div class="col-md-8 order-md-1 order-2">
-            <form id="loginForm" data-toggle="validator" class="shake" asp-action="ChanePassword" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
+            <form id="ChangePasswordForm" data-toggle="validator" class="shake" asp-action="ChangePassword" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
                 <div class="form-group">
                     Şuanki Şifre
                     <!-- ENTER MANE -->
                     <div class="form-group">
                         <!-- ENTER MESSAGE -->
-                        <input type="password" class="form-control" name="NowPassword" id="NowPassword" placeholder="Şifre" required data-error="Şuanki Şifrenizi Giriniz">
+                        <input type="password" class="form-control" name="NowPassword" id="NowPassword" placeholder="Şuanki Şifrenizi Giriniz" required data-error="Şuanki Şifrenizi Giriniz">
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="form-group">
+                    Yeni Şifre
                     <!-- ENTER MESSAGE -->
-                    <input type="password" class="form-control" name="NewPassword" id="NewPassword" placeholder="Şifre" required data-error="Yeni Şifrenizi Giriniz">
+                    <input type="password" class="form-control" name="Password" id="Password" placeholder="Yeni Şifrenizi Giriniz" required data-error="Yeni Şifrenizi Giriniz">
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
+                    Yeni Şifre Tekrar
                     <!-- ENTER MESSAGE -->
-                    <input type="password" class="form-control" name="RePassword" id="RePassword" placeholder="Şifre" required data-error="Yeni Şifrenizi Tekrar Giriniz">
+                    <input type="password" class="form-control" name="RePassword" id="RePassword" placeholder="Yeni Şifrenizi Tekrar Giriniz" required data-error="Yeni Şifrenizi Tekrar Giriniz">
                     <div class="help-block with-errors"></div>
                 </div>
 
                 <!-- button form submit -->
                 <div class="submit">
                     <div class="content-button">
-                        <button id="form-submit" type="submit" class="button-form">Gönder</button>
+                        <button id="form-submit-ChangePasswordForm" type="submit" class="button-form">Gönder</button>
                     </div>
                     <div id="msgSubmit" class="h5 h5 text-danger hidden"></div>
                 </div>
@@ -142,60 +144,71 @@
         </div>
     </div>
 
-    <!-- /.resume-section -->
-</div>
-    <!-- /.container page-bg -->
-}
-else
-{
-    <div class="dnone container page-bg" id="ProfileFormRow">
-        <div class="row">
-            @*<div class="col-md-12">
-                    <div class="description-text">
-                        <p>Nam odio quam, cursus sed scelerisque vel, tincidunt non ligula. Praesent luctus nunc ut magna pharetra, eget lacinia justo tempus. Nunc maximus scelerisque volutpat. Integer auctor velit eget eros pellentesque, nec tristique urna pulvinar. Nulla volutpat elit eu sodales lacinia.Nam odio quam, cursus sed scelerisque vel, tincidunt non ligula. Praesent luctus nunc ut magna pharetra, eget lacinia justo tempus.</p>
-                    </div>
-                </div>*@
-        </div>
-        <!-- ./row -->
-        <div class="form-content">
-            <div class="row">
-                <div class="col-md-12">
-                    <h4 class="title-text">Giriş Yap</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 order-md-1 order-2">
-                    <form id="loginForm" data-toggle="validator" class="shake" asp-action="Login" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
-                        <div class="form-group">
-                            <!-- ENTER MANE -->
-                            <input type="text" class="form-control" name="UserName" id="UserName" placeholder="Kullanıcı Adı" required data-error="Lütfen Kullanıcı Adını Giriniz">
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        @*<div class="form-group">
-                                 ENTER EMAIL
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" required data-error="Please enter your email address">
-                                <div class="help-block with-errors"></div>
-                            </div>*@
-                        <div class="form-group">
-                            <!-- ENTER MESSAGE -->
-                            <input type="password" class="form-control" name="password" id="Password" placeholder="Şifre" required data-error="Lütfen Şifreyi giriniz">
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <!-- button form submit -->
-                        <div class="submit">
-                            <div class="content-button">
-                                <button id="form-submit" type="submit" class="button-form">Gönder</button>
-                            </div>
-                            <div id="msgSubmit" class="h5 h5 text-danger hidden"></div>
-                        </div>
-                    </form>
+    <div class="dnone row" id="SystemSettings">
+        <form id="ResetAllInformationForm" data-toggle="validator" class="shake" asp-action="ResetAllInformation" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
+            <div class="col-md-8 order-md-2 order-2">
+                <div class="content-button">
+                    <button id="form-submit-SystemSettingsReset" type="submit" class="button-form">Tüm Görüntülediğim Bilgileri Sıfırla</button>
                 </div>
 
             </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.form-content -->
+        </form>
     </div>
+
+    <!-- /.resume-section -->
+</div>
+ <!-- /.container page-bg -->
+}
+else
+{
+<div class="dnone container page-bg" id="ProfileFormRow">
+    <div class="row">
+        @*<div class="col-md-12">
+                <div class="description-text">
+                    <p>Nam odio quam, cursus sed scelerisque vel, tincidunt non ligula. Praesent luctus nunc ut magna pharetra, eget lacinia justo tempus. Nunc maximus scelerisque volutpat. Integer auctor velit eget eros pellentesque, nec tristique urna pulvinar. Nulla volutpat elit eu sodales lacinia.Nam odio quam, cursus sed scelerisque vel, tincidunt non ligula. Praesent luctus nunc ut magna pharetra, eget lacinia justo tempus.</p>
+                </div>
+            </div>*@
+    </div>
+    <!-- ./row -->
+    <div class="form-content">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="title-text">Giriş Yap</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 order-md-1 order-2">
+                <form id="Loginform" data-toggle="validator" class="shake" asp-action="Login" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
+                    <div class="form-group">
+                        <!-- ENTER MANE -->
+                        <input type="text" class="form-control" name="UserName" id="UserName" placeholder="Kullanıcı Adı" required data-error="Lütfen Kullanıcı Adını Giriniz">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    @*<div class="form-group">
+                             ENTER EMAIL
+                            <input type="email" class="form-control" id="email" placeholder="Enter email" required data-error="Please enter your email address">
+                            <div class="help-block with-errors"></div>
+                        </div>*@
+                    <div class="form-group">
+                        <!-- ENTER MESSAGE -->
+                        <input type="password" class="form-control" name="password" id="Password" placeholder="Şifre" required data-error="Lütfen Şifreyi giriniz">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <!-- button form submit -->
+                    <div class="submit">
+                        <div class="content-button">
+                            <button id="form-submit-Loginform" type="submit" class="button-form">Gönder</button>
+                        </div>
+                        <div id="msgSubmit" class="h5 h5 text-danger hidden"></div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.form-content -->
+</div>
 }
 <!-- /.container page-bg -->
 
@@ -217,9 +230,10 @@ else
          $('#ProfileFormRow').hide();
         }
 
-        Jform('#loginForm');
-
-
+        Jform('#Loginform');
+        Jform('#UpdateAppUserInformationForm');
+        Jform('#ChangePasswordForm');
+        Jform('#ResetAllInformationForm');
 
 
         $('.LoginIcon').click(function () {
@@ -233,12 +247,11 @@ else
         });
 
 
-
-
     });
 
 
     $('a[href="#AppUserProfile"]').click(function () {
+                closeAllProfileFormRow();
            $.ajax({
             type: 'post',
             url: '@Url.Action("GetAppUserInformation","Home")',
@@ -261,28 +274,28 @@ else
     });
 
     $('a[href="#ChangePassword"]').click(function () {
-           $.ajax({
-            type: 'post',
-            url: '@Url.Action("GetAppUserInformation","Home")',
-            processData: false,
-            contentType: false
-        }).done(function (result) {
-            if (result.message == "succes") {
-                  $('#AppUserProfile').show();
-                    $("#UserName").val(result.data.username);
-                    $("#email").val(result.data.email);
-                    $("#Name").val(result.data.name);
-                    $("#Surname").val(result.data.surname);
-                    $('a[href="#AppUserProfile"]').addClass('active');
+        closeAllProfileFormRow();
+         $('#ChangePassword').show();
+          $('a[href="#ChangePassword"]').addClass('active');
+    });
 
-            }
-            else {
-
-            }
-        });
-        });
+          $('a[href="#SystemSettings"]').click(function () {
+        closeAllProfileFormRow();
+         $('#SystemSettings').show();
+          $('a[href="#SystemSettings"]').addClass('active');
+    });
 
 
+
+
+    function closeAllProfileFormRow() {
+        $('#ChangePassword').hide();
+        $('#AppUserProfile').hide();
+        $('#SystemSettings').hide();
+        $('a[href="#AppUserProfile"]').removeClass('active');
+        $('a[href="#ChangePassword"]').removeClass('active');
+        $('a[href="#SystemSettings"]').removeClass('active');
+    }
     }
 
 

@@ -15,7 +15,7 @@
             contentType: false
         }).done(function (result) {
           btnSubmit.removeAttr("disabled", false);
-            if (result.message === "success") {
+            if (result.status === true) {
                 Swal.fire({
                     title: result.message,
                     icon: 'success',
@@ -28,11 +28,13 @@
                     }, 1000);
                 }
                 else {
-                    $(f)[0].reset();
+                    if (result.refresh == true) {
+                       $(f)[0].reset();
+                    }
                 }
 
-
-            } else {
+            }
+            else {
                 Swal.fire({
                     title: result.message,
                     icon: 'error',

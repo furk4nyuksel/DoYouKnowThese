@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DoYouNowThese.BIZ.Operations.InformationReadLog
 {
-   public class InformationReadLogOperation
+    public class InformationReadLogOperation
     {
         DoYouNowTheseContext context;
 
@@ -22,8 +22,22 @@ namespace DoYouNowThese.BIZ.Operations.InformationReadLog
         }
         public List<int> GetReadedInformationContentByAppUserId(int appUserId)
         {
-            List<int> contentListId = context.InformationReadLog.Where(s => s.AppUserId == appUserId&&s.IsActive&&!s.IsDeleted).Select(m=>m.InformationContentId).ToList();
+            List<int> contentListId = context.InformationReadLog.Where(s => s.AppUserId == appUserId && s.IsActive && !s.IsDeleted).Select(m => m.InformationContentId).ToList();
             return contentListId;
+        }
+
+        public int RemoveAllAppUserLog(int appuUserId)
+        {
+            List<DoYouNowThese.DATA.Models.InformationReadLog> informationReadLogList = context.InformationReadLog.Where(s => s.AppUserId == appuUserId && s.IsActive && !s.IsDeleted).ToList();
+
+            int counter = 0;
+            foreach (var log in informationReadLogList)
+            {
+                counter += 1;
+                log.IsDeleted = true;
+            }
+            context.SaveChanges();
+            return counter;
         }
     }
 }

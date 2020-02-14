@@ -1,5 +1,6 @@
 ﻿using DoYouNowThese.CommonModel.AppUserModel;
 using DoYouNowThese.DATA.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,8 @@ namespace DoYouNowThese.BIZ.Operations.AppUserOperation
 
         public void Update(AppUser entity)
         {
-            context.AppUser.Add(entity);
+            context.Entry(entity).State = EntityState.Modified;
+
             context.SaveChanges();
         }
     }

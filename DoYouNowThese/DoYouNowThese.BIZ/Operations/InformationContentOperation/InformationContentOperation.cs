@@ -28,7 +28,7 @@ namespace DoYouNowThese.BIZ.Operations.InformationContentOperation
         {
             List<int> readList = informationReadLogOperation.GetReadedInformationContentByAppUserId(appUserId);
             InformationContent informationContent = new InformationContent();
-            if (readList != null&&readList.Count>0)
+            if (appUserId != 0)
             {
                  informationContent = context.InformationContent.Include(s=>s.Author).Include(a=>a.Category).Where(s => s.IsActive && !s.IsDeleted && !readList.Contains(s.InformationContentId)).OrderBy(s => Guid.NewGuid()).Take(1).SingleOrDefault();
                 if (informationContent != null)

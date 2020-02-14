@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DoYouNowThese.BIZ.Operations.AppUserOperation;
+using DoYouNowThese.BIZ.Operations.InformationReadLog;
 using DoYouNowThese.CommonModel.AppUserModel;
 using DoYouNowThese.CommonModel.Infrastructure;
 using DoYouNowThese.DATA.Models;
@@ -17,12 +18,13 @@ namespace DoYouNowThese.API.Controllers
     {
         DoYouNowTheseContext db;
         AppUserOperation appUserOperation;
+        InformationReadLogOperation InformationReadLogOperation;
         public AppUserController()
         {
             db = new DoYouNowTheseContext();
             appUserOperation = new AppUserOperation(db);
         }
-        
+
         [HttpPost]
         [Authorize(AuthenticationSchemes = "Bearer")]
         [Route("~/api/[controller]/GetById")]
@@ -36,11 +38,11 @@ namespace DoYouNowThese.API.Controllers
             {
                 AppUserInformationModel appUserInformationModel = new AppUserInformationModel()
                 {
-                    AppUserId=appUser.AppUserId,
-                    Name=appUser.Name,
-                    Surname=appUser.Surname,
-                    Email=appUser.Email,
-                    Username=appUser.Username
+                    AppUserId = appUser.AppUserId,
+                    Name = appUser.Name,
+                    Surname = appUser.Surname,
+                    Email = appUser.Email,
+                    Username = appUser.Username
                 };
                 infrastructureModel.ResultModel = appUserInformationModel;
                 infrastructureModel.ResultStatus = true;
@@ -51,7 +53,7 @@ namespace DoYouNowThese.API.Controllers
         [HttpPost]
         [Authorize(AuthenticationSchemes = "Bearer")]
         [Route("~/api/[controller]/Update")]
-        public IActionResult Update([FromBody] AppUserInformationModel  appUserInformationModel)
+        public IActionResult Update([FromBody] AppUserInformationModel appUserInformationModel)
         {
             InfrastructureModel<bool> infrastructureModel = new InfrastructureModel<bool>();
 
@@ -62,7 +64,7 @@ namespace DoYouNowThese.API.Controllers
                 //appUser.Email = appUserInformationModel.Email;
                 appUser.Name = appUserInformationModel.Name;
                 appUser.Surname = appUserInformationModel.Surname;
-               // appUser.Username = appUserInformationModel.Username;
+                // appUser.Username = appUserInformationModel.Username;
 
                 appUserOperation.Update(appUser);
 
@@ -70,7 +72,7 @@ namespace DoYouNowThese.API.Controllers
                 infrastructureModel.ResultStatus = true;
             }
 
-            return Json(appUserInformationModel);
+            return Json(infrastructureModel);
         }
 
         [HttpPost]
@@ -110,7 +112,28 @@ namespace DoYouNowThese.API.Controllers
 
             return Json(infrastructureModel);
         }
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Route("~/api/[controller]/ResetAllInformationAppUser")]
+        public JsonResult ResetAllInformationAppUser([FromBody] AppUserModel appUserModel)
+        {
+            InfrastructureModel<bool> infrastructureModel = new InfrastructureModel<bool>();
 
+            var appUser = appUserOperation.GetById(appUserModel.AppUser.AppUserId);
+
+            if (appUser != null)
+            {
+                InformationReadLogOperation = new InformationReadLogOperation(db);
+
+                int counter = InformationReadLogOperation.RemoveAllAppUserLog(appUser.AppUserId);
+
+                infrastructureModel.Message = counter.ToString() + " Kayıt Silindi";
+                infrastructureModel.ResultModel = true;
+                infrastructureModel.ResultStatus = true;
+            }
+
+            return Json(infrastructureModel);
+        }
 
     }
 }
