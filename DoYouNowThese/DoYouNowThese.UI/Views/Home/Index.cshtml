@@ -148,7 +148,7 @@
         <form id="ResetAllInformationForm" data-toggle="validator" class="shake" asp-action="ResetAllInformation" asp-controller="Home" autocomplete="off" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
             <div class="col-md-8 order-md-2 order-2">
                 <div class="content-button">
-                    <button id="form-submit-SystemSettingsReset" type="submit" class="button-form">Tüm Görüntülediğim Bilgileri Sıfırla</button>
+                    <button id="SystemSettingsResetBtn" type="submit" class="button-form">Tüm Görüntülediğim Bilgileri Sıfırla</button>
                 </div>
 
             </div>
@@ -296,10 +296,15 @@ else
         $('a[href="#ChangePassword"]').removeClass('active');
         $('a[href="#SystemSettings"]').removeClass('active');
     }
+
+    
+
+    $('#SystemSettingsResetBtn').click(function () {
+        alert('qweqw');
+    $('#btnChange').prop("disabled", false);
+    });
+
     }
-
-
-
 
 
 
