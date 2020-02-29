@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"    
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"    
+             xmlns:local="clr-namespace:DoYouNowThese.M.CustomComponent"    
+             xmlns:controls="clr-namespace:DoYouNowThese.M.CustomComponent"    
+             x:Class="DoYouNowThese.M.Views.LoginPage" BackgroundColor="#323542">
+    <!--Common Styles Starts-->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="LightGreenColor">#2FA999</Color>
+            <Color x:Key="BorderColor">#D8D8D8</Color>
+
+            <Style x:Key="LableStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#666666" />
+                <Setter Property="FontSize" Value="Large" />
+            </Style>
+            <Style x:Key="FrameStyle" TargetType="Frame">
+                <Setter Property="HasShadow" Value="False" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="BorderColor" Value="{StaticResource BorderColor}" />
+            </Style>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="HeightRequest" Value="40"></Setter>
+                <Setter Property="Margin" Value="5,0,0,0"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <!--Common Styles Ends-->
+
+    <StackLayout Margin="30,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+
+        <Label TextColor="White" Text="Giriş Yap"   HorizontalOptions="Center" Margin="20" FontSize="30" x:Name="lblTitle" />
+
+        <Frame HasShadow="False" CornerRadius="5" BorderColor="{StaticResource BorderColor}" BackgroundColor="#F7F7F7">
+
+            <StackLayout>
+                <Label Style="{StaticResource LableStyle}" Text="Kullanıcı Adı" />
+                <Frame Style="{StaticResource FrameStyle}">
+                    <controls:CustomEntry x:Name="ent_UserName" Style="{StaticResource EntryStyle}"></controls:CustomEntry>
+                </Frame>
+                
+                <Label Style="{StaticResource LableStyle}" Text="Şifre"></Label>
+                <Frame Style="{StaticResource FrameStyle}">
+                    <controls:CustomEntry IsPassword="True" x:Name="ent_Password" Style="{StaticResource EntryStyle}"></controls:CustomEntry>
+                </Frame>
+                
+                <Button Margin="100,20" BorderRadius="6" WidthRequest="200" x:Name="ShopIDSubmit" TextColor="White" BackgroundColor="{StaticResource LightGreenColor}" Text="Giriş Yap"></Button>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+
+</ContentPage>

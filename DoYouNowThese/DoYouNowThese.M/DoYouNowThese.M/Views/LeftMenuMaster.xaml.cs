@@ -39,6 +39,9 @@ namespace DoYouNowThese.M.Views
                     new LeftMenuMasterMenuItem { Id = 2, Title = "Hakkımızda" },
                     new LeftMenuMasterMenuItem { Id = 3, Title = "Kategoriye Göre İçerik",TargetType=new CategoryPage().GetType() },
                 });
+
+                MenuItems.Add(new LeftMenuMasterMenuItem() { Id = 5, Title = "Giriş Yap",TargetType=new LoginPage().GetType() });
+                MenuItems.Add(new LeftMenuMasterMenuItem() { Id = 6, Title = "Kayıt Ol",TargetType=new RegisterPage().GetType() });
             }
 
             #region INotifyPropertyChanged Implementation
