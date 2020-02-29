@@ -38,10 +38,11 @@ namespace DoYouNowThese.M
         {
             InformationContentProvider informationContentProvider = new InformationContentProvider();
 
-            var data = informationContentProvider.GetInformationContentSingleData(TokenAccesModel.accesValue);
+            var data = informationContentProvider.GetInformationContentSingleData(new InformationContentPostModel() { TokenKey= TokenAccesModel.accesValue });
 
             lblExplanation.Text = data.ResultModel.Explanation;
             lblTitle.Text = data.ResultModel.Title;
+            ImgPostSource.Source = data.ResultModel.ImagePath;
             contentPage.BackgroundImageSource= data.ResultModel.ImagePath;
         }
 
