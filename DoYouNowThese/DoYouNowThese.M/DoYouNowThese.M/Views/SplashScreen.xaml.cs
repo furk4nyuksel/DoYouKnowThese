@@ -13,18 +13,16 @@ namespace DoYouNowThese.M.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SplashScreen : ContentPage
     {
-        TokenProvider tokeProvider;
+        TokenProvider tokenProvider;
         public SplashScreen()
         {
             InitializeComponent();
 
-            tokeProvider = new TokenProvider();
-            if (!App.Current.Properties.ContainsKey("token"))
-            {
-                string token = tokeProvider.GetAnonimToken();
-                Application.Current.Properties["token"] = token;
-                Application.Current.SavePropertiesAsync();
-            }
+            tokenProvider = new TokenProvider();
+            string token = tokenProvider.GetAnonimToken();
+            Application.Current.Properties["token"] = token;
+            Application.Current.SavePropertiesAsync();
+
             LogoAnimation();
         }
 

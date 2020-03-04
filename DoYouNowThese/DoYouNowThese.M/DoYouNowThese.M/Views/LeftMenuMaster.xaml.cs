@@ -39,9 +39,16 @@ namespace DoYouNowThese.M.Views
                     new LeftMenuMasterMenuItem { Id = 2, Title = "Hakkımızda" },
                     new LeftMenuMasterMenuItem { Id = 3, Title = "Kategoriye Göre İçerik",TargetType=new CategoryPage().GetType() },
                 });
+                if (Application.Current.Properties["appUserId"] == null)
+                {
+                    MenuItems.Add(new LeftMenuMasterMenuItem() { Id = 5, Title = "Giriş Yap", TargetType = new LoginPage().GetType() });
+                    MenuItems.Add(new LeftMenuMasterMenuItem() { Id = 6, Title = "Kayıt Ol", TargetType = new RegisterPage().GetType() });
+                }
+                else
+                {
+                    MenuItems.Add(new LeftMenuMasterMenuItem() { Id = 7, Title = "Çıkış Yap", TargetType = new Logout().GetType() });
+                }
 
-                MenuItems.Add(new LeftMenuMasterMenuItem() { Id = 5, Title = "Giriş Yap",TargetType=new LoginPage().GetType() });
-                MenuItems.Add(new LeftMenuMasterMenuItem() { Id = 6, Title = "Kayıt Ol",TargetType=new RegisterPage().GetType() });
             }
 
             #region INotifyPropertyChanged Implementation

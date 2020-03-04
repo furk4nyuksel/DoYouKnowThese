@@ -46,7 +46,7 @@
                     <controls:CustomEntry IsPassword="True" x:Name="ent_Password" Style="{StaticResource EntryStyle}"></controls:CustomEntry>
                 </Frame>
                 
-                <Button Margin="100,20" BorderRadius="6" WidthRequest="200" x:Name="ShopIDSubmit" TextColor="White" BackgroundColor="{StaticResource LightGreenColor}" Text="Giriş Yap"></Button>
+                <Button Margin="100,20" BorderRadius="6" WidthRequest="200" TextColor="White" BackgroundColor="{StaticResource LightGreenColor}" Text="Giriş Yap" x:Name="btnLogin"></Button>
             </StackLayout>
         </Frame>
     </StackLayout>
