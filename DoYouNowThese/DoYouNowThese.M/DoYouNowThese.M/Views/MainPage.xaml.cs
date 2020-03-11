@@ -37,8 +37,8 @@ namespace DoYouNowThese.M
         private void BtnChangeSingleData_Clicked(object sender, EventArgs e)
         {
             InformationContentProvider informationContentProvider = new InformationContentProvider();
-
-            var data = informationContentProvider.GetInformationContentSingleData(new InformationContentPostModel() { TokenKey= TokenAccesModel.accesValue });
+            int appuserId = Application.Current.Properties["appUserId"] != null ? (int)Application.Current.Properties["appUserId"] : 0;
+            var data = informationContentProvider.GetInformationContentSingleData(new InformationContentPostModel() { TokenKey= TokenAccesModel.accesValue,AppUserId= appuserId });
 
             lblExplanation.Text = data.ResultModel.Explanation;
             lblTitle.Text = data.ResultModel.Title;

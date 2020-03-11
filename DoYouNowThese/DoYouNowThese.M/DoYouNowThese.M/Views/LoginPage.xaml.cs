@@ -38,7 +38,7 @@ namespace DoYouNowThese.M.Views
             {
                 Application.Current.Properties["appUserId"] = appuserModel.AppUser.AppUserId;
                 Application.Current.SavePropertiesAsync();
-                Navigation.PushAsync(new LeftMenu());
+                Navigation.PushModalAsync(new LeftMenu());
             }
             else
             {

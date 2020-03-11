@@ -31,7 +31,7 @@ namespace DoYouNowThese.M.Views
             imgLogo.Opacity = 0;
 
             await imgLogo.FadeTo(1, 2000);
-            Application.Current.MainPage = new LeftMenu();
+            Application.Current.MainPage = new LoginPage();
         }
 
     }

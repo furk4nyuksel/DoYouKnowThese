@@ -15,12 +15,16 @@ namespace DoYouNowThese.M.Views
         public Logout()
         {
             InitializeComponent();
+        }
 
 
+        public void LogoutMetod()
+        {
             Application.Current.Properties["appUserId"] = null;
             Application.Current.Properties["token"] = null;
             Application.Current.SavePropertiesAsync();
-            Navigation.PushAsync(new LeftMenu());
+            Navigation.PushModalAsync(new LeftMenu());
+
         }
     }
 }

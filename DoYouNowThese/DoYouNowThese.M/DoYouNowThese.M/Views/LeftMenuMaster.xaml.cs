@@ -28,11 +28,11 @@ namespace DoYouNowThese.M.Views
 
         class LeftMenuMasterViewModel : INotifyPropertyChanged
         {
-            public ObservableCollection<LeftMenuMasterMenuItem> MenuItems { get; set; }
+            public List<LeftMenuMasterMenuItem> MenuItems { get; set; }
 
             public LeftMenuMasterViewModel()
             {
-                MenuItems = new ObservableCollection<LeftMenuMasterMenuItem>(new[]
+                MenuItems = new List<LeftMenuMasterMenuItem>(new[]
                 {
                     new LeftMenuMasterMenuItem { Id = 0, Title = "İçerikler",TargetType=new MainPage().GetType() },
                     new LeftMenuMasterMenuItem { Id = 1, Title = "İçerik Gönder" },
