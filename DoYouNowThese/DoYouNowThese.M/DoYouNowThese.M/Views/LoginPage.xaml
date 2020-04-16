@@ -36,7 +36,7 @@
         <Frame HasShadow="False" CornerRadius="5" BorderColor="{StaticResource BorderColor}" BackgroundColor="#F7F7F7">
 
             <StackLayout>
-                <Label Style="{StaticResource LableStyle}" Text="Kullanıcı Adı" />
+                <Label Style="{StaticResource LableStyle}" Text="Email" />
                 <Frame Style="{StaticResource FrameStyle}">
                     <controls:CustomEntry x:Name="ent_UserName" Style="{StaticResource EntryStyle}"></controls:CustomEntry>
                 </Frame>

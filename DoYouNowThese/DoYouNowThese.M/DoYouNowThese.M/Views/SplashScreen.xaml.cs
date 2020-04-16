@@ -23,7 +23,17 @@ namespace DoYouNowThese.M.Views
             Application.Current.Properties["token"] = token;
             Application.Current.SavePropertiesAsync();
 
-            LogoAnimation();
+            if (Application.Current.Properties.ContainsKey("appUserId"))
+            {
+                imgLogo.Opacity = 0;
+                imgLogo.FadeTo(1, 2000);
+                Navigation.PushModalAsync(new LeftMenu());
+            }
+            else
+            {
+                LogoAnimation();
+            }
+
         }
 
         public async Task LogoAnimation()
